@@ -1,13 +1,8 @@
 <?php
 
 include("conexion/conexion.php");
-
 login();
-
-
 function login() {
-
-
        /*if(isset($_POST["formulario"])){
         header("location:form_registro.php");
        } */
@@ -31,7 +26,7 @@ function login() {
           // $_SESSION["perfil"]=$r["id_perfil"];
             $_SESSION["usuario"]=$_POST["usuario"];
             $_SESSION["password"]=$_POST["password"];
-             //  $_SESSION["user"]=$r["ae_usuario"];
+            $_SESSION["user"]=$r["ae_usuario"];
              //    $_SESSION["username"]=$r["ae_usuario"];
              //  $_SESSION["nombre"]=$r["ae_nombre"]." ".$r["ae_apellido"];
                  header("Location:home.php");
@@ -39,23 +34,27 @@ function login() {
         }
       }
   
-
-
 ?>
 
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<!DOCTYPE html>
+<html>
+<head> 
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
  <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Documento</title>
+<title>Sistema Administrador de Eventos (KAF)</title>
 <script src="js/jquery.min.js" type="text/javascript"></script>
-<link href="bootstrap/bootstrap.min.css" rel="stylesheet"/>    
-<link href="fonts/OleoScript-Regular.ttf" rel="stylesheet"/>
+<link href="bootstrap/bootstrap.min.css" rel="stylesheet"/>   
+<link href="../fonts/Roboto-regular.ttf" rel="stylesheet"/>
 <link href="bootstrap/newstyle.css" rel="stylesheet" />
+<style>
+body{
+
+ font-family: 'Roboto', arial , sans-serif;
+}
+</style>
 </head>    
 <body>
         <div class="container formulario"> <!-- clase container de bootstrap !-->
@@ -72,13 +71,13 @@ function login() {
 
 
             <div class="row">
-                <fieldset class="col-xs-10 col-xs-offset-1">
+             <fieldset class="col-xs-10 col-md-10 col-xs-offset-1">
                    <legend class="hidden-xs">
                      <h3>Inicio de sesion</h3>
                    </legend>
 
                 
-                    <form class="form-horizontal horizontal" id="form1" action="index.php" method="post"> 
+                     <form class="form-horizontal horizontal" id="form1" action="index.php" method="post"> 
 
                               <div class="form-group">
                                  <label class="col-xs-12 control-label" for="usuario"><h4>Usuario</h4></label>

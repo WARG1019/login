@@ -22,6 +22,20 @@ body{
 		}
 
 
+ table tr td{
+ 
+ 
+
+ }
+
+
+ .tamaño{
+   
+   width:200px;
+   height:100px;
+ }
+
+
 /* selectores de clases para las estructuras o la ubicacion de las cajas */
 
 
@@ -130,6 +144,7 @@ display:block;
 
 .menu ul li a .icon-derecha{
 	float:right;
+	margin-top:5px;
 	/*margin-left:10px;*/
 }
 
@@ -176,7 +191,6 @@ display:block;
 
 .fixed{
 	position:fixed;
-	z-index:1000;
 	top:0;
 	left:0;
 	/* max-width:1000px; */

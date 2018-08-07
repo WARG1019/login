@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".menu ul li:has(ul)").click(function(e){  // funcion para seleccionar  de la siguiente forma  nav ul li > ul 
+	/*$(".menu ul li:has(ul)").click(function(e){  // funcion para seleccionar  de la siguiente forma  nav ul li > ul 
 		e.preventDefault();                      // No aparezca las almohadillas esto se da por que se le pasa el evento click 
 		                                         //como parametro de la funcion si te fijas e esta como parametro quiere decir 
 		                                         //e = click.
@@ -16,7 +16,7 @@ $(document).ready(function(){
 		}
 
 	 	                 
-	});
+	});*/
 
 	var altura = $('header').offset().top; // se define la altura 
 
@@ -33,4 +33,4 @@ $(document).ready(function(){
 	     	}
 
 		});
-});
+})

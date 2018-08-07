@@ -1,69 +1,14 @@
 <?php
 
-session_start();
-
-/*require("funciones/funciones.php");
-
-$func = new funciones();
+class funciones{
 
 
- if (isset($_GET['b'])) {
+function clientes(){
 
-        $g = $_GET['b'];
-
-    }
-
-
-if (isset($_GET['b']) or isset($_POST['b'])) {
-
-
-
-        switch ($g) {
-
-
-
-            case 1:echo $func->usuarios();
-
-                break;
-
-			 case 2:echo $func->clientes();
-
-                break;
-
-				
-
-             case 5:echo $func->requerimientos();
-
-                break;	
-
-           case 6:echo $func->pop();
-
-                break;	
-
-			 
-
-			  case 8:echo $func->requerimientoxtipo();
-
-                break;			
-
-           case 9:echo $func->adminsusu();
-
-                break;	
-
-        }
-
-    }
-
-*/
-
-
-class enlace {
-
-
- function cliente(){
-
- 	$opc='<div class="col-2 col-md-2 offset-0">
-	 <a href="home.php?c=1&b=2" class="btn btn-primary fa fa-user-plus fa-lg">
+ 	$opc='
+     
+    <div class="col-2 col-md-2 offset-0">
+	 <a href="#" class="btn btn-primary fa fa-user-plus fa-lg">
 	 <br>
 	 <br>	
 	 <label for="username">Crear Clientes</label>	
@@ -89,48 +34,19 @@ class enlace {
 	<br>	
 	<label for="username">Crear Sectores</label>	
 	</a>
-	</div>';
+	</div>
+
+
+      	';
 	 		       echo $opc; 		        		
  }
 
 
- function paneldecotizacion(){
 
-  $panel='<div class="col-2 col-md-2 offset-0">
-  <a href="" class="btn btn-primary fa fa-user-plus fa-lg">
-  <br>
-  <br>	
-  <label for="username">Nuevo Evento</label>	
-  </a>
-  </div>
-  <div class="col-2 col-md-2 offset-1">
-  <a href="" class="btn btn-success fa fa-user-circle fa-lg">
-  <br>
-  <br>	
-  <label for="username">Pre Cotizacion</label>	
-  </a>
-  </div>
-  <div class="col-2 col-md-2 offset-1">
-  <a href="" class="btn btn-warning fa fa-pie-chart fa-lg">
-  <br>
-  <br>	
-  <label for="username">Cotizaciones</label>	
-  </a>
-  </div>
-  <div class="col-2 col-md-2 offset-1">
-  <a href="" class="btn btn-danger fa fa-pie-chart fa-lg">
-  <br>
-  <br>	
-  <label for="username">Orden de Compra</label>	
-  </a>
-  </div>';
-	 	echo $panel;	        	
-
-   }
 
 function crear_cliente(){
 
-$clien='<div class="container">
+$clien='div class="container">
  <div class="row">       
   <div class="col-12">
   <h2>Formulario Creacion Cliente</h2>
@@ -186,7 +102,17 @@ $clien='<div class="container">
                                   <option value="Empresarial">Empresarial</option>
                                   <option value="Personal">Personal</option>
                                   </select>
-                              
+                                  <script>
+                                  function cambios(val){
+                                    if(val== "Personal"){
+                                        document.getElementById("campo").style.display="block";
+                                        document.getElementById("campo").style.display="table-row";
+                                    }else{
+                                        document.getElementById("campo").style.display="none";
+                                    }
+                                }
+
+                                </script>
                             </div>
 
         </div>               
@@ -222,7 +148,7 @@ $clien='<div class="container">
                             
                                <div class=" col-12 col-md-5">
                                   <label for="sector" class="">Sector</label>
-                                  <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">Sector empresarial del cliente.</span></div>                    
+                                  <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">Sector empresarial del cliente.</span></div>' . $this->seleccion("sectores", "ae_desc_sector", "", "ae_id_sector", "sector", "") . '</div>                          
         
                                  <div class=" col-12 col-md-5" style="display:none;">
                                 <label for="Tipo Relacion">Tipo Relacion</label>
@@ -291,163 +217,10 @@ $clien='<div class="container">
 }
 
 
-function usuarios(){
-
- 	$opc='
-
-
-<table width="200px" cellspacing="50" cellpadding="10">
-
-     <tr> 
-        <td>
-        <div class="tamaño">
-             <a href="" class="btn btn-primary fa fa-user-plus fa-lg" style="width:200px; height:80px;">
-             <br>
-             <br>
-             <label for="username"><strong>Crear Usuarios</strong></label> 
-             </a>
-            </div>
-          </td>
-        <td>
-           <div class="tamaño">
-             <a href="" class="btn btn-primary fa fa-user-circle fa-lg" style="width:200px; height:80px;">
-             <br>
-             <br>
-             <label for="username"><strong>Usuarios</label> 
-            </a>
-          </div>
-        </td>
-        <td>
-         
-         <div class="tamaño">
-            <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-            <br>
-            <br>
-            <label for="username"><strong>Crear ubicacion</strong></label> 
-            </a>
-          </div>
-
-        </td>
-        <td>
-
-          <div class="tamaño">
-            <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-            <br>
-            <br>
-            <label for="username"><strong>Capacidad X Ubicacion</strong></label> 
-            </a>
-          </div>
-
-        </td>
-                  
-     </tr>
-
-     <tr>
-
-                 <td> 
-                  <div class="tamaño">
-                    <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-                    <br>
-                    <br>  
-                    <label for="username"><strong>Ubicaciones</strong></label> 
-                    </a>
-                </div>
-               </td> 
-
-
-              <td>
-                <div class="tamaño">
-                  <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-                  <br>
-                  <br>
-                  <label for="username"><strong>Crear Categoria</strong></label> 
-                  </a>
-                </div>
-              </td>
-
-               <td>
-                <div class="tamaño">
-                  <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-                  <br>
-                  <br>
-                  <label for="username"><strong>Categoria</strong></label> 
-                  </a>
-                </div>
-              </td>
-               <td>
-                <div class="tamaño">
-                  <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-                  <br>
-                  <br>
-                  <label for="username"><strong>Crear Items</strong></label> 
-                  </a>
-                </div>
-             </td>
-           </tr>     
-
-       <tr>
-               <td>
-                 <div class="tamaño">
-                    <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-                    <br>
-                    <br> 
-                    <label for="username"><strong>Capacidades x Salon</strong></label> 
-                    </a>
-                </div>
-              </td>
-            
-            <td> 
-            <div class="tamaño">
-              <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-              <br>
-              <br>  
-              <label for="username"><strong>Items</strong></label> 
-              </a>
-            </div>
-           </td>
-
-           <td>  
-            <div class="tamaño">
-              <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-              <br>
-              <br>  
-              <label for="username"><strong>Crear Tipo Evento</strong></label> 
-              </a>
-            </div>
-           </td>
-
-           <td>
-            <div class="tamaño">
-              <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">
-              <br>
-              <br>  
-              <label for="username"><strong>Tipos de Eventos</strong></label>  
-              </a>
-            </div>
-           </td>  
-        
-     </tr>
-     
-       <tr>  
-
-             <td> 
-              <div class="tamaño">
-                <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">  
-                <label for="username"><strong>Crear tipos de montaje</strong></label>  
-                </a>
-              </div>
-             </td> 
-         </tr>
-    </table>             
-	';
-
-	echo $opc;
 
 }
 
-   
 
-} 
 
 
 
