@@ -134,6 +134,8 @@ $clien='<div class="container">
  <div class="row">       
   <div class="col-12">
   <h2>Formulario Creacion Cliente</h2>
+  <br>
+  <br>
   </div>
  </div>
 </div> 
@@ -150,14 +152,15 @@ $clien='<div class="container">
                                   <label for="cliente1">Cliente</label>
                                   <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">Digite el nombre completo del cliente.</span></div>
                                   <input type="text"  class="form-control" placeholder="Cliente" name="cliente" id="cliente">
-                                </div>
+                                  </div>
                                  <div class=" col-12 col-md-5">
-                                <label for="telefono1">Telefono Contacto</label>
-                                <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">Teléfono(s) fijos del contacto (indicar extensiones).</span></div>
+                                   <label for="telefono1">Telefono Contacto</label>
+                                <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">Teléfono(s) fijos del contacto (indicar extensiones).</span>
+                                </div>
                                 <input type="text"  class="form-control" placeholder="Telefono" name="telefono" id="telefono">
                             </div>
                         
-        </div>
+                       </div>
                   
 
 
@@ -202,7 +205,40 @@ $clien='<div class="container">
                                 <label for="ciudad1">Ciudad</label>
                                 <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">Ciudad de residencia del cliente.</span></div><input type="text"  class="form-control" placeholder="Ciudad" name="ciudad" id="ciudad">
                             </div>
+        </div>    
+
+
+<div class="form-group row">
+                            
+                               <div class=" col-12 col-md-10">
+                                  <label for="origencliente" class="control-label">Origen Cliente</label>
+                                  <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">¿Cómo conocí el cliente?.</span></div>
+                                  <select name="oc" class="form-control" >
+                                  <option value="">--Seleccione--</option>
+                                  <option value="Telefono">Telefono</option>
+                                  <option value=">Internet">Internet</option>
+                                  <option value="Web">Web</option>
+                                  <option value="Recomendacion">Recomendacion</option>
+                                  <option value="Personal">Visita Personal</option>
+                                  </select>
+                                </div>                                
+                                 <div class=" col-12 col-md-10">
+                                <label for="Credito" class="control-label">Credito</label>
+                                <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">¿El cliente manejará crédito con el Hotel?.</span>
+                                </div>
+                                <select name="credito" class="form-control">
+                                <option value="">--Seleccione--</option>
+                                <option value="NO">No</option>
+                                <option value="SI">Si</option>
+                                </select>
+                            </div>
         </div>               
+
+
+
+
+
+
 
 <div class="form-group row">
                             
@@ -220,11 +256,11 @@ $clien='<div class="container">
 
 <div class="form-group row">
                             
-                               <div class=" col-12 col-md-5">
+                               <div class=" col-12 col-md-12" style="display:none;">
                                   <label for="sector" class="">Sector</label>
                                   <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">Sector empresarial del cliente.</span></div>                    
         
-                                 <div class=" col-12 col-md-5" style="display:none;">
+                                 <div class=" col-12 col-md-12" style="display:none;">
                                 <label for="Tipo Relacion">Tipo Relacion</label>
                                 <select name="tr" class="form-control">
                                 <option value="Cliente">Cliente</option>
@@ -233,35 +269,10 @@ $clien='<div class="container">
 </div>               
 
 
-<div class="form-group row">
-                            
-                               <div class=" col-12 col-md-5">
-                                  <label for="origencliente" class="control-label">Origen Cliente</label>
-                                  <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">¿Cómo conocí el cliente?.</span></div>
-                                  <select name="oc" class="form-control" >
-                                  <option value="">--Seleccione--</option>
-                                  <option value="Telefono">Telefono</option>
-                                  <option value=">Internet">Internet</option>
-                                  <option value="Web">Web</option>
-                                  <option value="Recomendacion">Recomendacion</option>
-                                  <option value="Personal">Visita Personal</option>
-                                  </select>
-                                </div>                                
-                                 <div class=" col-12 col-md-5">
-                                <label for="Credito" class="control-label">Credito</label>
-                                <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">¿El cliente manejará crédito con el Hotel?.</span></div>
-                                <select name="credito" class="form-control">
-                                <option value="">--Seleccione--</option>
-                                <option value="NO">No</option>
-                                <option value="SI">Si</option>
-                                </select>
-                            </div>
-        </div>               
-
 
 <div class="form-group row">
                             
-                               <div class=" col-12 col-md-5" name="campo" id="campo" style="display:none">
+                               <div class=" col-12 col-md-12" name="campo" id="campo" style="display:none">
                                   <label for="fechanacimiento" class="control-label">Fecha de Nacimiento</label>
                                   <div class="tooltip"><img src="imagenes_corporativas/icon_help.png"><span class="tooltiptext">Fecha de nacimiento para publicidad.</span></div><input type="date"  class="form-control" placeholder="Fecha de Nacimiento" name="ae_cumple" id="ae_cumple">
                                 
@@ -271,12 +282,17 @@ $clien='<div class="container">
        
        <br>
        <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
+       <br>
        
-       <div class="row">
-       <div class="col-10">
-        <input name="gcli" value="Guardar"  type="submit"  class="button lightblue icon btn-block btn-lg"/>
-       </div>
-       </div>
+            <!--<input name="gcli" value="Guardar"  type="submit"  class="btn btn-primary btn-block btn-lg"/>-->
+            <button class="btn btn-primary  btn-block btn-sm ml-5 mt-5" type="submit" name="gcli" style="width:80%; height:50px;">Guardar</button>
+      
 
        <br>
        <br>
@@ -310,7 +326,7 @@ function usuarios(){
           </td>
         <td>
            <div class="tamaño">
-             <a href="" class="btn btn-primary fa fa-user-circle fa-lg" style="width:200px; height:80px;">
+             <a href="" class="btn btn-success fa fa-user-circle fa-lg" style="width:200px; height:80px;">
              <br>
              <br>
              <label for="username"><strong>Usuarios</label> 
@@ -432,7 +448,9 @@ function usuarios(){
 
              <td> 
               <div class="tamaño">
-                <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;">  
+                <a href="" class="btn btn-primary fa fa-pie-chart fa-lg" style="width:200px; height:80px;"> 
+                <br>
+                <br> 
                 <label for="username"><strong>Crear tipos de montaje</strong></label>  
                 </a>
               </div>
