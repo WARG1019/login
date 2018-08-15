@@ -31,6 +31,34 @@ if(isset($_POST['c'])){
 
 }
 
+if (isset($_POST["usu"])){
+
+
+    $c = $_POST["c"];
+
+    $b = $_POST["b"];
+
+    $usu = $_POST["usu"];
+
+ }
+
+
+if (isset($_GET["usu"])){
+
+
+    $c = $_GET["c"];
+
+    $b = $_GET["b"];
+
+    $usu = $_GET["usu"];
+
+}        
+
+
+
+
+
+
 
 ?>
 
@@ -39,12 +67,12 @@ if(isset($_POST['c'])){
 <head>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<title>Aplicacion</title>
+	<title>Aplicacion Kaf</title>
     <link href="bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <script src="js/all.js"></script>
    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link href="bootstrap/font-awesome.min.css" rel="stylesheet"/>
-	<link href="bootstrap/estilos2.css" rel="stylesheet">
+	<!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
+	<link href="bootstrap/estilos2.css" rel="stylesheet"/>
 
 </head>
 <body>
@@ -83,8 +111,8 @@ if(isset($_POST['c'])){
                                  	<li><a href="#">Indicadores</a></li>
                                   </ul>
 								</li>
-								<li><a href="#"><span class="fa fa-cog"></span>&nbsp;&nbsp;Configuracion<i class="icon-derecha fa fa-chevron-down"></i></a>
-                                 <ul>
+								<li><a href="#"><i class="fas fa-cog"></i>&nbsp;&nbsp;Configuracion<i class="icon-derecha fa fa-chevron-down"></i></a>
+                                 <ul style="display:none;">
                                     <li><a href="?b=1" id="us">Administracion</a></li>
                                     <li><a href="home.php?c=43" >Impuesto</a></li>
                                     <li><a href="home.php?c=44" >Propina</a></li>
@@ -92,16 +120,16 @@ if(isset($_POST['c'])){
                                     <li><a href="home.php?c=4">Crear Sucursal</a></li>
                                     </ul>
                                 </li>
-								<li><a href="#"><span class="fa fa-pie-chart"></span>&nbsp;&nbsp;Comercial<i class="icon-derecha fa fa-chevron-down"></i></a>
+								<li><a href="#"><i class="fas fa-chart-pie"></i>&nbsp;&nbsp;Comercial<i class="icon-derecha fa fa-chevron-down"></i></a>
                                 <ul class="nuevomenu">
                                  	<li><a href="?b=2" id="cli">Clientes</a></li>
-                                 	<li><a href="">Panel de cotizaciones</a></li>
+                                 	<li><a href="?b=3">Panel de cotizaciones</a></li>
                                  	<li><a href="">Cotizaciones Canceladas</a></li>
                                  	<li><a href="">Cotizaciones Pendientes por aprobacion</a></li>
                                   </ul>
 								</li>
 								<li><a href="#""><span class="fa fa-calendar"></span>&nbsp;&nbsp;Calendario</a></li>
-								<li><a href="#"><span class="fa fa-commenting-o"></span>&nbsp;&nbsp;Mensajeria</a></li>
+								<li><a href="#"><i class="fas fa-comment-alt"></i>&nbsp;&nbsp;Mensajeria</a></li>
 								<li><a href="#"><span class="fa fa-image"></span>&nbsp;&nbsp;Diapositivas</a></li>
 								<li><a href="#"><span class="fa fa-birthday-cake"></span>&nbsp;&nbsp;Cumpleaños</a></li>
 								<li><a href="#"><span class="fa fa-power-off"></span>&nbsp;&nbsp;Salir</a></li>	
@@ -177,10 +205,24 @@ if(isset($_POST['c'])){
                         break;
 
                         case 2: 
-
+                           
+                           echo $metodo->mostrar_usuario();
                         
                         break;
                         
+                         case 3:
+                         
+                         echo $metodo->crear_usuario();
+
+                         break; 
+
+                        case 4:
+
+                        echo $metodo->editar_usuario($usu);
+
+                        break;
+
+
 
                      }
 
@@ -202,7 +244,7 @@ if(isset($_POST['c'])){
 				<script src="js/bootstrap.min.js"></script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!--<link rel="stylesheet" href="bootstrap/bootstrap.min.css">-->
-				<!--<script src="js/main.js"></script>-->
+				<script src="js/main.js"></script>
                 <script type="text/javascript" src="js/scriptbreaker-multiple-accordion-1.js"></script>
 
                 <script language="javascript">
