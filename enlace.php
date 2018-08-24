@@ -57,7 +57,50 @@ if (isset($_GET['b']) or isset($_POST['b'])) {
     }
 
 */
+?>
+   
 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+    
+    <!-- Add fancyBox -->
+    <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+    <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    
+    <!-- Optionally add helpers - button, thumbnail and/or media -->
+    <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+    
+    <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>  
+
+    <script type="text/javascript">
+                $(document).ready(function() {  
+                $ (".fancybox"). fancybox();
+                });
+
+
+
+            $("#enlace12").fancybox({
+                width       : '90%',
+                height      : '90%',
+                maxWidth    : 800,
+                maxHeight   : 600,
+                fitToView   : false,
+                autoSize    : false,
+                closeClick  : false,
+                openEffect  : 'none',
+                closeEffect : 'none',
+            });
+                    
+            </script>  
+
+
+
+<?php
 
 class enlace {
 
@@ -71,7 +114,7 @@ class enlace {
 	 </a>
 	 </div>
 	 <div class="col-2 col-md-2 offset-1">
-	 <a href="" class="btn btn-success" style="width:200px; height:80px;"><i class="fas fa-user-circle fa-2x fa-lg"></i>
+	 <a href="home.php?c=6&b=2" class="btn btn-success" style="width:200px; height:80px;"><i class="fas fa-user-circle fa-2x fa-lg"></i>
 	 <br>
 	 <label for="username"><strong>Clientes</strong></label>	
 	</a>
@@ -95,9 +138,9 @@ class enlace {
  function paneldecotizacion(){
 
   $panel='<div class="col-2 col-md-2 offset-0">
-  <a href="" class="btn btn-primary" style="width:200px; height:80px;"><i class="fas fa-calendar-alt fa-2x fa-lg"></i>
+  <a href="home.php?c=5&b=3" class="btn btn-primary" style="width:200px; height:80px;"><i class="fas fa-calendar-alt fa-2x fa-lg"></i>
   <br>
-  <label for="username"><strong>Nuevo Evento</strong></label>	
+  <label for="newEvent"><strong>Nuevo Evento</strong></label>	
   </a>
   </div>
   <div class="col-2 col-md-2 offset-1">
@@ -619,7 +662,7 @@ $modusu ='
                       
                           <h1>Listado de Usuario del Sistema</h1>
                           <br>
-                          <table class="table table-hover table-responsive" style="height:70%;"> 
+                          <table class="table table-hover table-responsive"> 
                            <thead class="thead-inverse"> 
                               <tr>
                                     <th>Nombre</th>
@@ -794,6 +837,253 @@ $r = mysql_query($this->query);
           
           echo $usua;
  }
+
+
+
+function crear_evento(){
+
+
+
+$creareq='
+
+<div class="container">
+            <div class="row">       
+              <div class="col-12">
+                  <h2>Formulario Creacion Evento</h2>
+                    <br>
+                    <br>
+              </div>
+            </div>
+        </div> 
+            <div class="container ">
+               <div class="row">
+                  <div class="col-12">
+                    <form id="formcrereq" name="form1" method="post">
+
+                        <div id="result">
+                          <input type="hidden" name="conf" value="0">
+                        </div>
+
+                      <div class="form-group row">
+                                                      
+                           <div class=" col-12 col-md-5">
+                                <img src="imagenes/icon_help.png" title="Escriba o digite por favor el nombre del usuario"/>&nbsp;&nbsp;<label for="cliente2">Cliente</label>
+                                  <a id="enlace12" data-fancybox-type="iframe" href="funciones/crear_evento.php" class="fancybox form-control btn btn-success" >Clientes</a> 
+
+                            </div>
+                              
+                               <div class=" col-12 col-md-5">
+                                  <img src="imagenes/icon_help.png" title="Digite el Apellido del usuario">&nbsp;&nbsp;<label for="apellido ">Nombre del Evento:</label>
+                                        <input type="text"  class="form-control" name="ape"  placeholder="Apellido"> 
+                               </div>
+                                                  
+                      </div>
+                                            
+
+
+                                  <div class="form-group row">
+                                                      
+                                      <div class=" col-10 ">
+                                           <img src="imagenes/icon_help.png" title="introduzca la identificacion del usuario sin guiones."/>&nbsp;&nbsp;<label for="identificacion">Identificacion</label>
+                                            <input type="text"  class="form-control" name="iden" placeholder="Identificacion">
+                                    </div>
+                                </div>
+
+                                 
+                                  
+                                  <div class="form-group row">                        
+                                    <div class=" col-10">
+                                      <img src="imagenes/icon_help.png" title="Escriba o introduzca su correo electronico"/>&nbsp;&nbsp;<label for="correo">Correo</label>
+                                        <input type="text" class="form-control" name="cor" id="email" placeholder="Correo Electronico">
+                                        </div>
+                                            
+                                  </div>                       
+                                  
+               
+
+
+                           <div class="form-group row">
+                                                      
+                              <div class=" col-12 col-md-10">
+                                 <img src="imagenes/icon_help.png" title="ingrese su numero de telefono movil">&nbsp;&nbsp;<label for="movil">Movil (telefono)</label>
+                                    <input type="text" class="form-control" placeholder="Telefono movil" name="movil" id="movil">
+                                </div>
+                           </div>    
+
+                           
+                           <div class="form-group row">     
+
+                             <div class=" col-12 col-md-10">
+                                 <img src="imagenes/icon_help.png" title="Ingrese el perfil del usuario: 1 - administrador, 2 - vendedor, 3 - Banquetes, 4 - Restaurante">&nbsp;&nbsp;<label for="perfil">Perfil del Usuario</label>
+                                    <input type="text" class="form-control" placeholder="Perfil del Usuario" name="perfil" id="perfil">
+                                </div>
+                           </div>         
+                          
+
+                         <div class="form-group row">
+                            <div class=" col-12 col-md-10">
+                                   <img src="imagenes/icon_help.png" title="introduzca de cual sucursal de la empresa es">&nbsp;&nbsp;<label for="sucursal">Sucursal</label>
+                                      <input type="text" class="form-control" placeholder="Sucursal" name="Sucursal" id="sucursal">
+                                  </div>
+                           </div>    
+
+                          <div class="form-group row"> 
+                             <div class=" col-12 col-md-10">
+                                   <img src="imagenes/icon_help.png" title="Esta Opcion le permitira entran a la aplicacion">&nbsp;&nbsp;<label for="user">Usuario</label>
+                                      <input type="text" class="form-control" placeholder="user" name="user" id="user">
+                                  </div>
+                           </div>    
+                           
+                            <div class="form-group row"> 
+                             <div class=" col-12 col-md-10">
+                                   <img src="imagenes/icon_help.png" title="Esta opcion le permite ingresar su contraseña de entrada a la aplicacion">&nbsp;&nbsp;<label for="password">Password</label>
+                                      <input type="password" class="form-control" placeholder="password" name="password" id="password">
+                                  </div>
+                           </div>    
+                           
+            
+                                      <button class="btn btn-primary  btn-block btn-sm ml-2 mt-5" type="submit" name="gcli" style="width:80%; height:50px;" >Guardar</button>
+                                
+
+                                 <br>
+                                 <br>
+
+
+                     </form>
+                    </div>
+                   </div>
+                 </div>
+
+
+';
+echo $creareq;
+
+}
+
+function listar_cliente(){
+
+ $this->seleccion3("clientes", "*", "");
+ $r = mysql_query($this->query);
+
+ $pop = '
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-12">
+
+                     <h1><img src="../imagenes/icon_help.png" title="Seleccione el cliente para asignarle dicho evento">&nbsp;Listado de Clientes</h1>
+                      <br>
+                      <p>Si no lo has creado <a href="../home.php?c=1&b=2" target="_parent">Click Aqui</a></p>
+                      <table id="clientes" style="width:800px; color:black;" class="table table-responsive table-hover">
+                      <thead class="thead-inverse">
+                         <tr>
+                             <th style="width: 105px;"><b>Nombre</b></th>
+                              <th><b>Documento</b></th>
+                        <th><b>Telefono</b></th>
+                        <th><b>Email</b></th>
+                        <th><b>Tipo Cliente</b></th>
+                        <th><b>Seleccionar</b></th>
+                         </tr>
+                      </thead>
+                      <tfoot>
+                          <tr>
+                              <th></th>
+                              <th></th>
+                          </tr>
+                      </tfoot>
+                          <tbody>';
+                          while ($reg = mysql_fetch_array($r)) {
+                              $cond = "where ae_id_cliente=" . $reg["ae_id_cliente"] . "";
+                        $cliente = $reg['ae_id_cliente'];
+                              $pop.= '<tr>
+                                      <td style="width: 135px;" >'. utf8_encode($reg['ae_nom_cliente']) . '</td>
+                                      <td style="width: 60px;">' . $reg['ae_doc_cliente'] . '</td>
+                                                                  <td style="width: 105px;">' . $reg['ae_tel_cliente'] . '</a></td>
+                                                                  <td style="width: 105px;">' . $reg['ae_email_cliente'] . '</a></td>
+
+                                                                  <td style="width: 105px;">' . $reg['ae_tipo_cliente'] . '</a></td>
+
+                                                                      <td>' . $this->input("clientes", "ae_nom_cliente", $cond, "clien", "", "clien", "radio") . '</a></td>
+
+                               </tr>';
+                          }
+                      $pop.="</table>
+
+       </div>
+
+    </div>
+
+ </div>
+
+                      ";
+
+
+  echo $pop;
+  
+}
+
+
+
+function mostrar_cliente(){
+
+$this->seleccion3("clientes", "*", "");
+ $r = mysql_query($this->query);
+
+$clien = '
+
+<div class="container">
+        <div class="row">
+          <div class="col-12 col-md-12">
+
+                   <h1>Listado de Clientes</h1>
+                    <br>
+                      <table style="color:black;" class="table table-responsive table-hover">
+                      <thead class="thead-inverse">
+                         <tr>
+                             <th style="width: 105px;"><b>Nombre</b></th>
+                              <th><b>Documento</b></th>
+                        <th><b>Telefono</b></th>
+                        <th><b>Email</b></th>
+                        <th><b>Tipo Cliente</b></th>
+                         </tr>
+                      </thead>
+                      <tfoot>
+                          <tr>
+                              <th></th>
+                              <th></th>
+                          </tr>
+                      </tfoot>
+                          <tbody>';
+                          while ($reg = mysql_fetch_array($r)) {
+                              $cond = "where ae_id_cliente=" . $reg["ae_id_cliente"] . "";
+                        $cliente = $reg['ae_id_cliente'];
+                              $clien.= '<tr>
+                                      <td>'. utf8_encode($reg['ae_nom_cliente']) . '</td>
+                                      <td>' . $reg['ae_doc_cliente'] . '</td>
+                                                                  <td>' . $reg['ae_tel_cliente'] . '</a></td>
+                                                                  <td>' . $reg['ae_email_cliente'] . '</a></td>
+
+                                                                  <td>' . $reg['ae_tipo_cliente'] . '</a></td>
+
+                                                                      <td>' . $this->input("clientes", "ae_nom_cliente", $cond, "clien", "", "clien", "radio") . '</a></td>
+
+                               </tr>';
+                          }
+                      $clien.='</table>
+
+       </div>
+
+    </div>
+
+ </div>
+
+';
+
+echo $clien;
+
+
+}
+
    
  
 }

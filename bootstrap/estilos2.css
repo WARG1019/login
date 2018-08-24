@@ -199,3 +199,13 @@ display:block;
 
 
 }
+
+.fancybox-slide--iframe{
+    width  : 800px;
+	height : 600px;
+	max-width  : 80%;
+	max-height : 80%;
+	margin: 0;
+}
+
+}

@@ -70,10 +70,23 @@ if (isset($_GET["usu"])){
 	<title>Aplicacion Kaf</title>
     <link href="bootstrap/bootstrap.min.css" rel="stylesheet"/>
     <script src="js/all.js"></script>
-   <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-	<!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">-->
 	<link href="bootstrap/estilos2.css" rel="stylesheet"/>
-
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    
+    <!-- Add mousewheel plugin (this is optional) -->
+    <script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+    
+    <!-- Add fancyBox -->
+    <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+    <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    
+    <!-- Optionally add helpers - button, thumbnail and/or media -->
+    <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+    
+    <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
 </head>
 <body>
 	
@@ -192,7 +205,7 @@ if (isset($_GET["usu"])){
             <article class="col-12 mt-3 ">
               <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, rerum!</p> !-->
               <div class="card  pt-5 pr-5 pl-5 pb-5">
-                  <div class="card-block" id="contenedor23">
+                  <div class="card-block" id="contenedor23" style="border:5px solid lightgray; border-radius:7px;">
 
                     <?php
 
@@ -221,8 +234,16 @@ if (isset($_GET["usu"])){
                         echo $metodo->editar_usuario($usu);
 
                         break;
+                        
+                        case 5: 
 
+                        echo $metodo ->crear_evento();  
+                          
+                        break;  
 
+                        case 6:
+
+                        echo $metodo -> mostrar_cliente();
 
                      }
 
@@ -237,15 +258,21 @@ if (isset($_GET["usu"])){
         </section>
       </section>    
 
-    
+                
 				<script src="js/jquery.min.js"></script>
+                <script src="js/jquery-3.2.1.min.js"></script>
+               <script src="js/js/jquery-1.5.2.min.js"></script>                    
                 <script src="js/main.js"></script>
-                <script src="js/jquery-1.5.2.min.js"></script>
 				<script src="js/bootstrap.min.js"></script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!--<link rel="stylesheet" href="bootstrap/bootstrap.min.css">-->
 				<script src="js/main.js"></script>
-                <script type="text/javascript" src="js/scriptbreaker-multiple-accordion-1.js"></script>
+                <script type="text/javascript" src="js/js/scriptbreaker-multiple-accordion-1.js"></script>
+                <!--<script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+                <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+                <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+                <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+                <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script> 1-->
 
                 <script language="javascript">
                   
@@ -261,6 +288,7 @@ if (isset($_GET["usu"])){
                 });
                   
                 </script>
+
 
   </body>
 </html>
