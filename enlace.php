@@ -952,12 +952,12 @@ function listar_cliente(){
                               $cond = "where ae_id_cliente=" . $reg["ae_id_cliente"] . "";
                              $cliente = $reg['ae_id_cliente'];
                               $pop.= '<tr>
-                                      <td style="width: 135px;" >'. utf8_encode($reg['ae_nom_cliente']) . '</td>
-                                      <td style="width: 60px;">' . $reg['ae_doc_cliente'] . '</td>
-                                                                  <td style="width: 105px;">' . $reg['ae_tel_cliente'] . '</a></td>
-                                                                  <td style="width: 105px;">' . $reg['ae_email_cliente'] . '</a></td>
+                                      <td>'. utf8_encode($reg['ae_nom_cliente']) . '</td>
+                                      <td>' . $reg['ae_doc_cliente'] . '</td>
+                                                                  <td>' . $reg['ae_tel_cliente'] . '</a></td>
+                                                                  <td>' . $reg['ae_email_cliente'] . '</a></td>
 
-                                                                  <td style="width: 105px;">' . $reg['ae_tipo_cliente'] . '</a></td>
+                                                                  <td>' . $reg['ae_tipo_cliente'] . '</a></td>
 
                                                                       <td>' . $this->input("clientes", "ae_nom_cliente", $cond, "clien", "", "clien", "radio") . '</td>
 
