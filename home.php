@@ -52,11 +52,13 @@ if (isset($_GET["usu"])){
 
     $usu = $_GET["usu"];
 
-}        
+}
 
 
+if(!isset($_POST["clien"])){
 
-
+    $_POST["clien"] = "Ninguno";
+}
 
 
 
@@ -90,7 +92,7 @@ if (isset($_GET["usu"])){
 </head>
 <body>
 	
-	<header class="container-fluid">
+	<header class="container-fluid fixed-top">
      <div class="row">
      	<div class="col-md-6">
          <h3 class="text-left"><a class="enlace" href="#"><span class="titulo">Kaf</span>Admin</a></h3>
@@ -265,14 +267,8 @@ if (isset($_GET["usu"])){
                 <script src="js/main.js"></script>
 				<script src="js/bootstrap.min.js"></script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <!--<link rel="stylesheet" href="bootstrap/bootstrap.min.css">-->
 				<script src="js/main.js"></script>
                 <script type="text/javascript" src="js/js/scriptbreaker-multiple-accordion-1.js"></script>
-                <!--<script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-                <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-                <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
-                <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
-                <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script> 1-->
 
                 <script language="javascript">
                   

@@ -3,62 +3,16 @@
 session_start();
 require("conexion/conexion.php");
 
+
 //require("funciones/funciones.php");
 
  //$func = new funciones();
 
-/*
-
- if (isset($_GET['b'])) {
-
-        $g = $_GET['b'];
-
-    }
 
 
-if (isset($_GET['b']) or isset($_POST['b'])) {
-
-
-
-        switch ($g) {
-
-
-
-            case 1:echo $func->usuarios();
-
-                break;
-
-			 case 2:echo $func->clientes();
-
-                break;
-
-				
-
-             case 5:echo $func->requerimientos();
-
-                break;	
-
-           case 6:echo $func->pop();
-
-                break;	
-
-			 
-
-			  case 8:echo $func->requerimientoxtipo();
-
-                break;			
-
-           case 9:echo $func->adminsusu();
-
-                break;	
-
-        }
-
-    }
-
-*/
 ?>
    
+    <script src="js/jquery.min.js"></script>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     
@@ -176,10 +130,10 @@ $clien='<div class="container">
   </div>
  </div>
 </div> 
- <div class="container ">
+ <div class="container">
  <div class="row">
   <div class="col-12">
-<form  method="post" action="login.php" id="formcli">
+<form  method="post" action="home.php" id="formcli">
 <input type="hidden" name="b" value="2">
 <input type="hidden" name="c" value="1">
 <input type="hidden" name="gcli" >
@@ -868,7 +822,7 @@ $creareq='
                                                       
                            <div class=" col-12 col-md-5">
                                 <img src="imagenes/icon_help.png" title="Escriba o digite por favor el nombre del usuario"/>&nbsp;&nbsp;<label for="cliente2">Cliente</label>
-                                  <a id="enlace12" data-fancybox-type="iframe" href="funciones/crear_evento.php" class="fancybox form-control btn btn-success" >Clientes</a> 
+                                  <a id="enlace12" data-fancybox-type="iframe" href="funciones/crear_evento.php" class="fancybox form-control btn btn-success">Cliente : '. $_POST["clien"] . '</a> 
 
                             </div>
                               
@@ -970,10 +924,12 @@ function listar_cliente(){
       <div class="container">
         <div class="row">
           <div class="col-12 col-md-12">
-
                      <h1><img src="../imagenes/icon_help.png" title="Seleccione el cliente para asignarle dicho evento">&nbsp;Listado de Clientes</h1>
                       <br>
                       <p>Si no lo has creado <a href="../home.php?c=1&b=2" target="_parent">Click Aqui</a></p>
+                    <form action="../home.php?c=5&b=3" method="post" id="miform">
+                     <input type="hidden" name=c value="5">
+                     <input type="hidden" name=b value="3">
                       <table id="clientes" style="width:800px; color:black;" class="table table-responsive table-hover">
                       <thead class="thead-inverse">
                          <tr>
@@ -994,7 +950,7 @@ function listar_cliente(){
                           <tbody>';
                           while ($reg = mysql_fetch_array($r)) {
                               $cond = "where ae_id_cliente=" . $reg["ae_id_cliente"] . "";
-                        $cliente = $reg['ae_id_cliente'];
+                             $cliente = $reg['ae_id_cliente'];
                               $pop.= '<tr>
                                       <td style="width: 135px;" >'. utf8_encode($reg['ae_nom_cliente']) . '</td>
                                       <td style="width: 60px;">' . $reg['ae_doc_cliente'] . '</td>
@@ -1003,11 +959,33 @@ function listar_cliente(){
 
                                                                   <td style="width: 105px;">' . $reg['ae_tipo_cliente'] . '</a></td>
 
-                                                                      <td>' . $this->input("clientes", "ae_nom_cliente", $cond, "clien", "", "clien", "radio") . '</a></td>
+                                                                      <td>' . $this->input("clientes", "ae_nom_cliente", $cond, "clien", "", "clien", "radio") . '</td>
 
                                </tr>';
                           }
-                      $pop.="</table>
+                      $pop.='</table>
+
+
+
+                   
+                   <input class="btn btn-primary  btn-block btn-sm ml-2 mt-5" formtarget="_parent" type="submit" id="cli" style="width:80%; height:50px;" value="Enviar">
+                  
+
+                  <script>
+
+                  
+                  
+                    $("#miform").submit(function(){
+                    
+                      $.post("home.php?c=5&b=3", {c:"5", b = "3", clien: $("input:radio[name=clien]:checked").val()});
+                     alert($("input:radio[name=clien]:checked").val());
+
+                       });
+                  
+
+                  </script>
+
+           </form>
 
        </div>
 
@@ -1015,7 +993,7 @@ function listar_cliente(){
 
  </div>
 
-                      ";
+                      ';
 
 
   echo $pop;
