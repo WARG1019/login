@@ -11,14 +11,18 @@ require("conexion/conexion.php");
 
 
 ?>
+
+  
    
     <script src="js/jquery.min.js"></script>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>!-->
     
     <!-- Add mousewheel plugin (this is optional) -->
     <script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
     
+
     <!-- Add fancyBox -->
     <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
     <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
@@ -29,7 +33,36 @@ require("conexion/conexion.php");
     <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
     
     <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
-    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>  
+    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+     <script src="js/Moment.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js" type="text/javascript"></script>
+   
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-datetimepicker.min.css"/>
+
+    <script src="js/bootstrap-datetimepicker.min.js"></script> 
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
+    
+    <!--<script src="js/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+
+    <link href="js/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+
+
+    <link href="js/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet">
+
+    <link href="js/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet">-->
+
+
+
+    <!--<link rel="stylesheet" href="bootstrap/jquery.ui.min.css" />
+    <script src="js/jquery-ui.min.js" type="text/javascript"></script>-->
+
+
 
     <script type="text/javascript">
                 $(document).ready(function() {  
@@ -49,9 +82,13 @@ require("conexion/conexion.php");
                 openEffect  : 'none',
                 closeEffect : 'none',
             });
-                    
-            </script>  
 
+
+          
+
+                     
+
+                    </script> 
 
 
 <?php
@@ -98,7 +135,7 @@ class enlace {
   </a>
   </div>
   <div class="col-2 col-md-2 offset-1">
-  <a href="" class="btn btn-success" style="width:200px; height:80px;"><i class="fas fa-list-alt fa-2x fa-lg"></i>
+  <a href="home.php?c=7&b=3" class="btn btn-success" style="width:200px; height:80px;"><i class="fas fa-list-alt fa-2x fa-lg"></i>
   <br>
   <label for="username"><strong>Pre Cotizacion</strong></label>	
   </a>
@@ -570,16 +607,15 @@ function seleccion2($tabla,$campo,$cond,$valor,$nombre,$id) {
   $ca=$campo.",".$valor;  
    $this->seleccion($tabla,$ca);
      $r=mysql_query($this->query); 
-  
-        $sel = "";
-        $sel.="<select name='".$nombre."'  class='form-control'>";
+     
+        $sel="<select name='".$nombre."'  class='form-control'>";
         $sel.="<option value=''>--Seleccione--</option>";
         while ($res = mysql_fetch_array($r)) {
         if ($res[$valor] == $id){
         $sel.="<option value=". $res[$valor] . "  selected>" . $res[$campo] . "</option>";
     }
     else {
-     $sel.="<option value=". $res[$valor] . "  >" . $res[$campo] . "</option>";
+     $sel.="<option value=". $res[$valor] . "  >" . $res[$campo] .  "</option>";
       
       }
     }
@@ -587,7 +623,34 @@ function seleccion2($tabla,$campo,$cond,$valor,$nombre,$id) {
     return $sel;
     
     }
+
+
+   
+   function seleccion4($tabla,$campo,$campo2,$cond,$valor,$nombre,$id) {
     
+  $ca=$campo.",".$valor.",".$campo2;  
+   $this->seleccion($tabla,$ca);
+     $r=mysql_query($this->query); 
+     
+        $sel="<select name='".$nombre."'  class='form-control'>";
+        $sel.="<option value=''>--Seleccione--</option>";
+        while ($res = mysql_fetch_array($r)) {
+        if ($res[$valor] == $id){
+        $sel.="<option value=". $res[$valor] . "  selected>" . $res[$campo] . "</option>";
+    }
+    else {
+     $sel.="<option value=". $res[$valor] . "  >" . $res[$campo] . " ". $res[$campo2] . " PAX (Capacidad Maxima) </option>";
+      
+      }
+    }
+        $sel.="</select>";
+    return $sel;
+    
+    }
+
+    
+
+
 
  function mostrar_usuario(){
 
@@ -698,6 +761,8 @@ $r = mysql_query($this->query);
             $cond = "where ae_identificacion=" . $resu["ae_identificacion"] . "";
             $usua.='
                <input type="hidden" name="identificacion" value="' . $resu["ae_identificacion"] . '">
+
+
 
                       <div class="form-group row">
                                                       
@@ -827,8 +892,8 @@ $creareq='
                             </div>
                               
                                <div class=" col-12 col-md-5">
-                                  <img src="imagenes/icon_help.png" title="Digite el Apellido del usuario">&nbsp;&nbsp;<label for="apellido ">Nombre del Evento:</label>
-                                        <input type="text"  class="form-control" name="ape"  placeholder="Apellido"> 
+                                  <img src="imagenes/icon_help.png" title="Digite el Nombre del evento">&nbsp;&nbsp;<label for="apellido ">Nombre del Evento:</label>
+                                        <input type="text"  class="form-control" name="des" value="" id="seus"  placeholder="Nombre de Evento"> 
                                </div>
                                                   
                       </div>
@@ -838,8 +903,8 @@ $creareq='
                                   <div class="form-group row">
                                                       
                                       <div class=" col-10 ">
-                                           <img src="imagenes/icon_help.png" title="introduzca la identificacion del usuario sin guiones."/>&nbsp;&nbsp;<label for="identificacion">Identificacion</label>
-                                            <input type="text"  class="form-control" name="iden" placeholder="Identificacion">
+                                           <img src="imagenes/icon_help.png" title="Haga click aqui para dentro del cuadro de texto y seleccione una fecha"/>&nbsp;&nbsp;<label for="fechainicial">Fecha Inicial</label>
+                                            <input type="date"  class="form-control" id="fechainicial" name="fecreqin" placeholder="Fecha inicial">
                                     </div>
                                 </div>
 
@@ -847,8 +912,8 @@ $creareq='
                                   
                                   <div class="form-group row">                        
                                     <div class=" col-10">
-                                      <img src="imagenes/icon_help.png" title="Escriba o introduzca su correo electronico"/>&nbsp;&nbsp;<label for="correo">Correo</label>
-                                        <input type="text" class="form-control" name="cor" id="email" placeholder="Correo Electronico">
+                                      <img src="imagenes/icon_help.png" title="Escriba la fecha final"/>&nbsp;&nbsp;<label for="fechafinal">Fecha Final</label>
+                                        <input type="date" class="form-control" name="cor" id="fechafinal" placeholder="Fecha Final">
                                         </div>
                                             
                                   </div>                       
@@ -858,55 +923,167 @@ $creareq='
 
                            <div class="form-group row">
                                                       
-                              <div class=" col-12 col-md-10">
-                                 <img src="imagenes/icon_help.png" title="ingrese su numero de telefono movil">&nbsp;&nbsp;<label for="movil">Movil (telefono)</label>
-                                    <input type="text" class="form-control" placeholder="Telefono movil" name="movil" id="movil">
+                              <div class=" col-12 col-md-5">
+                                 <img src="imagenes/icon_help.png" title="ingrese la hora de inicio del evento">&nbsp;&nbsp;<label for="movil">Hora de inicio del evento</label>
+                                    <input type="text" class="form-control" placeholder="HH:MM" name="hi" id="horainicio">
+                                </div>
+
+                                <div class=" col-12 col-md-5">
+                                 <img src="imagenes/icon_help.png" title="Ingrese hora de terminacion del evento">&nbsp;&nbsp;<label for="perfil">Hora final del evento</label>
+                                    <input type="text" class="form-control" placeholder="HH:MM" name="hf" id="horafinal">
                                 </div>
                            </div>    
-
-                           
-                           <div class="form-group row">     
-
-                             <div class=" col-12 col-md-10">
-                                 <img src="imagenes/icon_help.png" title="Ingrese el perfil del usuario: 1 - administrador, 2 - vendedor, 3 - Banquetes, 4 - Restaurante">&nbsp;&nbsp;<label for="perfil">Perfil del Usuario</label>
-                                    <input type="text" class="form-control" placeholder="Perfil del Usuario" name="perfil" id="perfil">
-                                </div>
-                           </div>         
                           
 
                          <div class="form-group row">
                             <div class=" col-12 col-md-10">
-                                   <img src="imagenes/icon_help.png" title="introduzca de cual sucursal de la empresa es">&nbsp;&nbsp;<label for="sucursal">Sucursal</label>
-                                      <input type="text" class="form-control" placeholder="Sucursal" name="Sucursal" id="sucursal">
+                                   <img src="imagenes/icon_help.png" title="Personas que van a asistir al evento(PAX).">&nbsp;&nbsp;<label for="cantidadasistentes">Cantidad de Asistentes:</label>
+                                      <input type="text" class="form-control" placeholder="Cantidad de asistencia" name="asis" id="asis">
                                   </div>
                            </div>    
 
                           <div class="form-group row"> 
                              <div class=" col-12 col-md-10">
-                                   <img src="imagenes/icon_help.png" title="Esta Opcion le permitira entran a la aplicacion">&nbsp;&nbsp;<label for="user">Usuario</label>
-                                      <input type="text" class="form-control" placeholder="user" name="user" id="user">
+                                   <img src="imagenes/icon_help.png" title="Ubicacion del Evento">&nbsp;&nbsp;<label for="ubicacion">Ubicacion Principal:</label>'. $this->seleccion4("ubicaciones", "ae_desc_ubicacion", "ae_capacidad" , "","ae_id_ubicacion", "ubic","").'
                                   </div>
                            </div>    
                            
                             <div class="form-group row"> 
                              <div class=" col-12 col-md-10">
-                                   <img src="imagenes/icon_help.png" title="Esta opcion le permite ingresar su contraseña de entrada a la aplicacion">&nbsp;&nbsp;<label for="password">Password</label>
-                                      <input type="password" class="form-control" placeholder="password" name="password" id="password">
+                                   <img src="imagenes/icon_help.png" title="Estilo de montaje o preparacion del auditorio">&nbsp;&nbsp;<label for="montaje">Montaje</label>'.$this->seleccion2("tipo_montaje", "ae_desc_tipo_montaje", "", "ae_id_tipo_montaje", "tipmon", "").'
+                                     
                                   </div>
                            </div>    
-                           
-            
-                                      <button class="btn btn-primary  btn-block btn-sm ml-2 mt-5" type="submit" name="gcli" style="width:80%; height:50px;" >Guardar</button>
+                            
+
+                            <div class="form-group row"> 
+                             <div class=" col-12 col-md-10">
+                                   <img src="imagenes/icon_help.png" title="Tipo de evento a realizar">&nbsp;&nbsp;<label for="tipodeevento">Tipo de Evento</label>'.$this->seleccion2("tipos_requerimiento", "ae_desc_tipo_requerimiento", "", "ae_id_tipo_requerimiento", "tipreq", "").'
+                                     
+                                  </div>
+                           </div> 
+
+
+
+                            <div class="form-group row"> 
+                             <div class=" col-12 col-md-10">
+                                <img src="imagenes/icon_help.png" title="Activar la opcion de propina le permite digitar el valor para la propina.">&nbsp;
+                                   <label for="propina" class="form-check-label">
+                                   <input type="checkbox" value="0" id="propina2" name="propina2"/>&nbsp;&nbsp;Habilitar propina
+                                   </label>
+                                  </div> 
+                                     
+                                     <div class="col-12 col-md-10 mt-2"  id="column" style="style="display:none;">        
+                                     <label id="sinopeso" style="display:none;">Valor de la propina en Pesos ($)</label><input type="text"  class ="form-control" id="propi" name="propi" style="display:none;" value="0" />
+                                     
+                                  </div>
+                           </div> 
+
+                          <div class="form-group row"> 
+                             <div class=" col-12 col-md-10">
+                                   <img src="imagenes/icon_help.png" title="¿Cómo conocí al cliente?">&nbsp;&nbsp;<label for="origen">Origen:</label>
+                                     <select name="origen" class="form-control">
+                                      <option value="">--Seleccione--</option>
+                                      <option>Telefono</option>
+                                      <option>Walk In</option>
+                                      <option>Correo</option>
+                                      <option>Referenciado</option>
+                                      <option>Ejecutivo Ventas</option>
+                                      <option>Reservas</option>
+                                      <option>Web</option>
+                                      </select>
+                                  </div>
+                           </div> 
+
+                           <div class="form-group row"> 
+                             <div class=" col-12 col-md-10">
+                                   <img src="imagenes/icon_help.png" title="Sistema de crédito a manejar en esta cotización.">&nbsp;&nbsp;<label 
+                                   for="formadepago">Forma de Pago</label>
+
+                                  <select name="pago" class="form-control">
+
+                                    <option value="">--Seleccione--</option>
+                                    <option>Pago Directo</option>
+                                    <option>Cheque</option>
+                                    <option>Tarjeta Credito</option>
+                                    <option>Tarjeta Debito</option>
+                                    <option>Transferencia</option>
+                                    <option>Consginación</option>
+                                    <option>Cuenta Compañia</option>
+
+                                  </select>
+                                   
+                            </div>
+                           </div> 
+
+                           <div class="form-group row"> 
+                             <div class=" col-12 col-md-10">
+                                   <img src="imagenes/icon_help.png" title="Asesor creador de la cotización, cargará automáticamente el usuario logueado.">&nbsp;&nbsp;<label for="cotizacioncreada">Cotizacion Creada por</label>
+
+                                   <input type="text"  class ="form-control" name="organizadopor"  value="' . $_SESSION["nombre"] . '" id="organizadopor" placeholder="Organizado Por">
+
+
+                                     
+                                  </div>
+                           </div> 
+
+                            <div class="form-group row"> 
+                             <div class=" col-12 col-md-10">
+                                   <img src="imagenes/icon_help.png" title="Persona responsable del evento.">&nbsp;&nbsp;<label for="organizador">Organizador o presentador Principal</label>
+                                  <input type="text" name="organizador"  value="" id="organizador" placeholder="Organizador" class="form-control">
+                                  <input type="hidden" name="usu" value="' . $_SESSION["usuario"] . '">
+
+                                  </div>
+                           </div>
+
+
+
+
+
+                                      <button class="btn btn-primary  btn-block btn-sm ml-2 mt-5" type="submit" name="gcli" style="width:80%; height:50px;" >Guardar Requerimientos</button>
                                 
 
                                  <br>
                                  <br>
 
+                                 
+
 
                      </form>
+
+
+
+                      <script>
+                      
+
+                      document.getElementById("propina2").addEventListener("click",verificar,false);
+
+                      function verificar(){
+                         
+                          if(document.getElementById("propina2").checked == true){ 
+                         document.getElementById("sinopeso").style.display="block";
+                         document.getElementById("propi").style.display="block";
+
+                          }else{ 
+
+                                document.getElementById("sinopeso").style.display="none";
+                                document.getElementById("propi").style.display="none"; 
+                              } 
+
+
+                        }
+
+                      
+
+                      </script>
+
+
+
+
                     </div>
                    </div>
                  </div>
+  
 
 
 ';
@@ -933,12 +1110,12 @@ function listar_cliente(){
                       <table id="clientes" style="width:800px; color:black;" class="table table-responsive table-hover">
                       <thead class="thead-inverse">
                          <tr>
-                             <th style="width: 105px;"><b>Nombre</b></th>
+                              <th><b>Nombre</b></th>
                               <th><b>Documento</b></th>
-                        <th><b>Telefono</b></th>
-                        <th><b>Email</b></th>
-                        <th><b>Tipo Cliente</b></th>
-                        <th><b>Seleccionar</b></th>
+                              <th><b>Telefono</b></th>
+                              <th><b>Email</b></th>
+                              <th><b>Tipo Cliente</b></th>
+                              <th><b>Seleccionar</b></th>
                          </tr>
                       </thead>
                       <tfoot>
@@ -1013,16 +1190,16 @@ $clien = '
         <div class="row">
           <div class="col-12 col-md-12">
 
-                   <h1>Listado de Clientes</h1>
+                   <h1>Listado de clientes</h1>
                     <br>
                       <table style="color:black;" class="table table-responsive table-hover">
                       <thead class="thead-inverse">
                          <tr>
-                             <th style="width: 105px;"><b>Nombre</b></th>
+                              <th><b>Nombre</b></th>
                               <th><b>Documento</b></th>
-                        <th><b>Telefono</b></th>
-                        <th><b>Email</b></th>
-                        <th><b>Tipo Cliente</b></th>
+                              <th><b>Telefono</b></th>
+                              <th><b>Email</b></th>
+                              <th><b>Tipo Cliente</b></th>
                          </tr>
                       </thead>
                       <tfoot>
@@ -1043,8 +1220,6 @@ $clien = '
 
                                                                   <td>' . $reg['ae_tipo_cliente'] . '</a></td>
 
-                                                                      <td>' . $this->input("clientes", "ae_nom_cliente", $cond, "clien", "", "clien", "radio") . '</a></td>
-
                                </tr>';
                           }
                       $clien.='</table>
@@ -1062,6 +1237,83 @@ echo $clien;
 
 }
 
+
+
+function ver_requerimiento(){
+
+$this->seleccion3("requerimientos r,clientes cl", "*", "where
+        r.cliente=cl.ae_nom_cliente");
+
+$r = mysql_query($this->query);  
+
+$requ = ' 
+
+  <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-12">
+
+                <h1 class="mt-2 mb-2">Listado de Pre-Cotizaciones</h1>
+                    
+                      <table style="color:black;" class="table table-responsive table-hover">
+                      <thead class="thead-inverse">
+                         <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Descripcion</th>
+                            <th>Fecha Inicial</th>
+                            <th>Fecha Final</th>
+                            <th class="text-center">Opciones</th>
+                      </thead>
+                      <tfoot>
+                          <tr>
+                              <th></th>
+                              <th></th>
+                          </tr>
+                      </tfoot>
+                          <tbody>';
+
+                         while ($reg = mysql_fetch_array($r)) {
+            $req = $reg['ae_id_requerimiento'];
+            $sql = " select DATEDIFF(req.ae_fecha_final,req.ae_fecha_inicial) dias
+            from requerimientos req where req.ae_id_requerimiento=" . $req . "";
+            $rs = mysql_query($sql);
+            $reg3 = mysql_fetch_array($rs);
+            $requ.= '<tr>
+                    <td><a class="button lightblue icon" href="home.php?b=5&requer=' . $req . '" title="Ver Cotizacion" >' . ($reg['ae_id_requerimiento']) . '</a></td>
+                        <td><a href="home.php?c=8&b=3&requeri=' . $req . '">' . $reg['ae_nom_cliente'] . '</a></td>
+                      <td><a href="home.php?c=8&b=3&requeri=' . $req . '">' . utf8_encode($reg['ae_desc_requerimiento']) . '</a></td>
+                        <td><a href="home.php?c=8&b=3&requeri=' . $req . '">' . $reg['ae_fecha_inicial'] . '</a></td>
+                        <td><a href="home.php?c=8&b=3&requeri=' . $req . '" >' . $reg['ae_fecha_final'] . '</a></td>
+
+                        <td>
+
+                         <a href="home.php?c=7&b=3"&requeri=' . $req . '" class="btn btn-danger"><i class="fas fa-times"></i>
+                         Eliminar
+                        </a>
+                        &nbsp;&nbsp;
+                        
+                        <a href="home.php?c=7&b=3"&requeri=' . $req . '" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;Editar
+                        </a>
+
+                        </td>
+
+
+                        ';
+             $requ.='</tr>';
+        }
+
+        $requ.='</tbody> 
+ 
+  
+         </div>
+   </div>
+ </div>
+
+ ';
+ 
+ echo $requ;
+
+}
    
  
 }

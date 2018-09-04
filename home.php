@@ -70,32 +70,58 @@ if(!isset($_POST["clien"])){
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<title>Aplicacion Kaf</title>
+
     <link href="bootstrap/bootstrap.min.css" rel="stylesheet"/>
+
     <script src="js/all.js"></script>
+
 	<link href="bootstrap/estilos2.css" rel="stylesheet"/>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     
     <!-- Add mousewheel plugin (this is optional) -->
     <script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
     
     <!-- Add fancyBox -->
     <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+
     <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
     
     <!-- Optionally add helpers - button, thumbnail and/or media -->
     <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+
     <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
     <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
     
     <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+
     <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+    <script src="js/jquery.min.js"></script>
+
+    <script src="js/js/jquery-1.5.2.min.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="js/main.js"></script>
+
+    <script type="text/javascript" src="js/js/scriptbreaker-multiple-accordion-1.js"></script>
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+
+
+
+
+    <!--<link rel="stylesheet" href="js/plugins/jqueryui/all/themes/base/jquery.ui.all.css" />-->
+   
 </head>
 <body>
 	
 	<header class="container-fluid fixed-top">
      <div class="row">
      	<div class="col-md-6">
-         <h3 class="text-left"><a class="enlace" href="#"><span class="titulo">Kaf</span>Admin</a></h3>
+         <h3 class="text-left"><a class="enlace" style="text-decoration:none;" href="#"><span class="titulo">Kaf</span>Admin</a></h3>
      	</div>
      	<div class="col-md-6">
      	 <h3 class="text-right">Usuario: <?php echo $_SESSION["user"]; ?></h3>	 
@@ -239,13 +265,19 @@ if(!isset($_POST["clien"])){
                         
                         case 5: 
 
-                        echo $metodo ->crear_evento();  
+                        echo $metodo -> crear_evento();  
                           
                         break;  
 
                         case 6:
 
                         echo $metodo -> mostrar_cliente();
+
+                        break;
+
+                        case 7:
+
+                        echo $metodo -> ver_requerimiento();
 
                      }
 
@@ -260,16 +292,6 @@ if(!isset($_POST["clien"])){
         </section>
       </section>    
 
-                
-				<script src="js/jquery.min.js"></script>
-                <script src="js/jquery-3.2.1.min.js"></script>
-               <script src="js/js/jquery-1.5.2.min.js"></script>                    
-                <script src="js/main.js"></script>
-				<script src="js/bootstrap.min.js"></script>
-                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-				<script src="js/main.js"></script>
-                <script type="text/javascript" src="js/js/scriptbreaker-multiple-accordion-1.js"></script>
-
                 <script language="javascript">
                   
                 $(document).ready(function() {
@@ -282,8 +304,31 @@ if(!isset($_POST["clien"])){
 
                     });
                 });
+
                   
                 </script>
+
+              <script>
+
+                $(document).ready(function(){
+                    $('#horainicio').timepicker({
+                         scrollbar: true,
+                         showDuration: true
+                    });
+
+                    $('#horafinal').timepicker({
+
+                      scrollbar: true,
+                      showDuration:true
+                    });
+
+                });
+
+                </script>
+
+
+                <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
 
 
   </body>

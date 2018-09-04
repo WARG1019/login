@@ -23,12 +23,13 @@ function login() {
             session_start();              
         //$sql="update usuarios set ae_conecta=1 where id_usuario='$idus'";
            //mysql_query($sql);
-          // $_SESSION["perfil"]=$r["id_perfil"];
+            $_SESSION["perfil"]=$r["id_perfil"];
             $_SESSION["usuario"]=$_POST["usuario"];
             $_SESSION["password"]=$_POST["password"];
             $_SESSION["user"]=$r["ae_usuario"];
              //    $_SESSION["username"]=$r["ae_usuario"];
-             //  $_SESSION["nombre"]=$r["ae_nombre"]." ".$r["ae_apellido"];
+             $_SESSION["nombre"]=$r["ae_nombre"]." ".$r["ae_apellido"];
+             
                  header("Location:home.php");
           }
         }
