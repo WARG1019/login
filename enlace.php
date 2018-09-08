@@ -601,10 +601,9 @@ function input($tabla, $campo, $cond, $nombre, $clas, $car, $type) {
 
 
 
-
 function seleccion2($tabla,$campo,$cond,$valor,$nombre,$id) {
-    
-  $ca=$campo.",".$valor;  
+
+   $ca=$campo.",".$valor;  
    $this->seleccion($tabla,$ca);
      $r=mysql_query($this->query); 
      
@@ -635,6 +634,7 @@ function seleccion2($tabla,$campo,$cond,$valor,$nombre,$id) {
         $sel="<select name='".$nombre."'  class='form-control'>";
         $sel.="<option value=''>--Seleccione--</option>";
         while ($res = mysql_fetch_array($r)) {
+
         if ($res[$valor] == $id){
         $sel.="<option value=". $res[$valor] . "  selected>" . $res[$campo] . "</option>";
     }
@@ -647,9 +647,6 @@ function seleccion2($tabla,$campo,$cond,$valor,$nombre,$id) {
     return $sel;
     
     }
-
-    
-
 
 
  function mostrar_usuario(){
@@ -753,7 +750,7 @@ $r = mysql_query($this->query);
                <div class="row">
                   <div class="col-12">
 
-                   <form method="post" action="login.php" id="formmodus" >
+                   <form method="post" action="home.php" id="formmodus" >
                       <input type="hidden" name="b" value="1">
                       <input type="hidden" name="c" value="3">';
 
@@ -1064,7 +1061,9 @@ $creareq='
                          document.getElementById("sinopeso").style.display="block";
                          document.getElementById("propi").style.display="block";
 
-                          }else{ 
+                          }
+
+                          else { 
 
                                 document.getElementById("sinopeso").style.display="none";
                                 document.getElementById("propi").style.display="none"; 
@@ -1279,7 +1278,7 @@ $requ = '
             $rs = mysql_query($sql);
             $reg3 = mysql_fetch_array($rs);
             $requ.= '<tr>
-                    <td><a class="button lightblue icon" href="home.php?b=5&requer=' . $req . '" title="Ver Cotizacion" >' . ($reg['ae_id_requerimiento']) . '</a></td>
+                    <td><a href="home.php?b=5&requer=' . $req . '" title="Ver Cotizacion" >' . ($reg['ae_id_requerimiento']) . '</a></td>
                         <td><a href="home.php?c=8&b=3&requeri=' . $req . '">' . $reg['ae_nom_cliente'] . '</a></td>
                       <td><a href="home.php?c=8&b=3&requeri=' . $req . '">' . utf8_encode($reg['ae_desc_requerimiento']) . '</a></td>
                         <td><a href="home.php?c=8&b=3&requeri=' . $req . '">' . $reg['ae_fecha_inicial'] . '</a></td>
@@ -1287,12 +1286,12 @@ $requ = '
 
                         <td>
 
-                         <a href="home.php?c=7&b=3"&requeri=' . $req . '" class="btn btn-danger"><i class="fas fa-times"></i>
+                         <a href="home.php?c=10&b=3&requeri=' . $req . '" class="btn btn-danger"><i class="fas fa-times"></i>
                          Eliminar
                         </a>
                         &nbsp;&nbsp;
                         
-                        <a href="home.php?c=7&b=3"&requeri=' . $req . '" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;Editar
+                        <a href="home.php?c=9&b=3&requeri=' . $req . '" class="btn btn-primary"><i class="fas fa-edit"></i>&nbsp;Editar
                         </a>
 
                         </td>
@@ -1300,11 +1299,13 @@ $requ = '
 
                         ';
              $requ.='</tr>';
-        }
+
+           }
 
         $requ.='</tbody> 
  
-  
+             </table> 
+
          </div>
    </div>
  </div>
@@ -1314,7 +1315,293 @@ $requ = '
  echo $requ;
 
 }
-   
+
+
+
+
+function valor($cliente, $valor_por_defecto){
+
+    if($cliente == "" ){
+
+      return $valor_por_defecto;
+
+    }
+
+    else{
+
+      return $cliente;
+
+    }
+
+}
+
+          function editar_evento($requeri){
+
+                $this->seleccion3("requerimientos", "*", "where ae_id_requerimiento=" . $requeri. "");
+                $r = mysql_query($this->query);
+
+                $modevent='<div class="container">
+                            <div class="row">       
+                              <div class="col-12">
+                                  <h2>Modificar Evento a Realizar</h2>
+                                    <br>
+                              </div>
+                            </div>
+                        </div> 
+
+                            <div class="container">
+
+                               <div class="row">
+                                  <div class="col-12">
+                                    <form id="formodreq" name="form2" method="post">
+                                       <input type="hidden" name="b" value="1">
+                                       <input type="hidden" name="c" value="3">
+
+                                       </div>
+                                    </div> ';
+
+                                          while ($resu = mysql_fetch_array($r)) {
+
+                                            $cond = "where ae_id_requerimiento=" . $resu["ae_id_requerimiento"] . "";
+                                            $cond1 = "where ae_id_requerimiento = " . $resu["ae_id_requerimiento"]." and ubicaciones.ae_desc_ubicacion = requerimientos.ubicacion";
+                                            echo "<script>alert('$cond1');</script>";
+                                            $nombre = $resu["cliente"];
+                                            $modevent.='  
+
+                                                 <div class="form-group row">
+                               
+                                                   <div class=" col-12 col-md-5">
+                                                        <img src="imagenes/icon_help.png" title="Escriba o digite por favor el nombre del usuario"/>&nbsp;&nbsp;<label for="cliente2">Cliente</label>
+                                                          <a id="enlace12" data-fancybox-type="iframe" href="funciones/crear_evento.php" class="fancybox form-control btn btn-success">Cliente : '. $this->valor($nombre, $_POST["clien"]).'</a> 
+
+                                                    </div>
+
+                                              
+                                               <div class=" col-12 col-md-5">
+                                                  <img src="imagenes/icon_help.png" title="Digite el Nombre del evento">&nbsp;&nbsp;<label for="apellido ">Nombre del Evento:</label>
+                                                        <input type="text"  class="form-control" name="des" value="'.$resu["ae_desc_requerimiento"].'" id="seus"  placeholder="Nombre de Evento"> 
+                                               </div>
+                                                                  
+                                      </div>
+                                                            
+
+
+                                                  <div class="form-group row">
+                                                                      
+                                                      <div class=" col-10 ">
+                                                           <img src="imagenes/icon_help.png" title="Haga click aqui para dentro del cuadro de texto y seleccione una fecha"/>&nbsp;&nbsp;<label for="fechainicial">Fecha Inicial</label>
+                                                            <input type="date"  class="form-control" id="fechainicial" name="fecreqin" placeholder="Fecha inicial" value="'.$resu["ae_fecha_inicial"].'">
+                                                    </div>
+                                                </div>
+
+                                                 
+                                                  
+                                                  <div class="form-group row">                        
+                                                    <div class=" col-10">
+                                                      <img src="imagenes/icon_help.png" title="Escriba la fecha final"/>&nbsp;&nbsp;<label for="fechafinal">Fecha Final</label>
+                                                        <input type="date" class="form-control" name="cor" id="fechafinal" placeholder="Fecha Final" value="'.$resu["ae_fecha_final"].'">
+                                                        </div>
+                                                            
+                                                  </div>                       
+                                                  
+                               
+
+
+                                           <div class="form-group row">
+                                                                      
+                                              <div class=" col-12 col-md-5">
+                                                 <img src="imagenes/icon_help.png" title="ingrese la hora de inicio del evento">&nbsp;&nbsp;<label for="movil">Hora de inicio del evento</label>
+                                                    <input type="time" class="form-control" placeholder="HH:MM" name="hi" id="horainicio" value="'.$resu["ae_hora_ini"].'">
+                                                </div>
+
+                                                <div class=" col-12 col-md-5">
+                                                 <img src="imagenes/icon_help.png" title="Ingrese hora de terminacion del evento">&nbsp;&nbsp;<label for="perfil">Hora final del evento</label>
+                                                    <input type="time" class="form-control" placeholder="HH:MM" name="hf" id="horafinal" value="'.$resu["ae_hora_fin"].'">
+                                                </div>
+                                           </div>    
+                                          
+
+                                         <div class="form-group row">
+                                            <div class=" col-12 col-md-10">
+                                                   <img src="imagenes/icon_help.png" title="Personas que van a asistir al evento(PAX).">&nbsp;&nbsp;<label for="cantidadasistentes">Cantidad de Asistentes:</label>
+                                                      <input type="text" class="form-control" placeholder="Cantidad de asistencia" name="asis" id="asis" value="'.$resu["ae_num_personas"].'">
+                                                  </div>
+                                           </div>    
+
+                                          <div class="form-group row"> 
+                                             <div class=" col-12 col-md-10">
+                                                   <img src="imagenes/icon_help.png" title="Ubicacion del Evento">&nbsp;&nbsp;<label for="ubicacion">Ubicacion Principal:</label>';
+
+                                                     $sql= "select ubicaciones.ae_capacidad, ubicaciones.ae_desc_ubicacion, r.ae_id_requerimiento from ubicaciones, requerimientos r where r.ae_id_requerimiento = ".$requeri." and ubicaciones.ae_desc_ubicacion = r.ubicacion"; 
+
+                                                     $res = mysql_query($sql); 
+
+
+
+                                                    $rest = mysql_fetch_array($res);
+                                                     
+                                                     $id = $rest["ae_id_requerimiento"]; 
+
+                                                     echo "<script>alert('$id')</script>";
+          
+                                                     $modevent.="<select name='ubi' class='form-control'>";
+
+                                                      $modevent.="<option value=''>--Seleccione--</option>";
+        
+                                                     if($rest["ae_id_requerimiento"] == $id){
+        
+                                                    $modevent.="<option value = ". $rest["ae_id_requerimiento"] . "  selected>" . $rest["ae_desc_ubicacion"] . " " . $rest["ae_capacidad"] . " PAX " . "</option>";
+
+                                                     } else { 
+                                                     
+                                                    $modevent.="<option value=". $rest["ae_id_requerimiento"] . "  >" . $rest["ubicacion"] .  "</option>"; 
+
+                                                      
+                                                     }
+                                                     
+
+                                                      $sql2 = "select ae_desc_ubicacion from ubicaciones";
+
+                                                      $re = mysql_query($sql2);
+
+                                                      while($reu = mysql_fetch_array($re)){
+
+                                                       
+                                                        $modevent.="<option value=". $requeri . "  >" . $reu["ae_desc_ubicacion"] . " " . $rest["ae_capacidad"] . " PAX " . "</option>"; 
+
+
+
+                                                        }
+
+
+
+                                                        $modevent.="</select>";
+
+                                                   $modevent.='
+
+                                                  </div>
+                                           </div>';   
+                                           
+                                            $modevent.='<div class="form-group row"> 
+                                             <div class=" col-12 col-md-10">
+                                                   <img src="imagenes/icon_help.png" title="Estilo de montaje o preparacion del auditorio">&nbsp;&nbsp;<label for="montaje">Montaje</label>'.$this->seleccion2("tipo_montaje", "ae_desc_tipo_montaje", "", "ae_id_tipo_montaje", "tipmon","").'
+                                                     
+                                                  </div>
+                                           </div>    
+                                            
+
+                                            <div class="form-group row"> 
+                                             <div class=" col-12 col-md-10">
+                                                   <img src="imagenes/icon_help.png" title="Tipo de evento a realizar">&nbsp;&nbsp;<label for="tipodeevento">Tipo de Evento</label>'.$this->seleccion2("tipos_requerimiento", "ae_desc_tipo_requerimiento", "", "ae_id_tipo_requerimiento", "tipreq", "").'
+                                                     
+                                                  </div>
+                                           </div> 
+
+
+
+                                            <div class="form-group row"> 
+                                             <div class=" col-12 col-md-10">
+                                                <img src="imagenes/icon_help.png" title="Activar la opcion de propina le permite digitar el valor para la propina.">&nbsp;
+                                                   <label for="propina" class="form-check-label">
+                                                   <input type="checkbox" value="0" id="propina2" name="propina2"/>&nbsp;&nbsp;Habilitar propina
+                                                   </label>
+                                                  </div> 
+                                                     
+                                                     <div class="col-12 col-md-10 mt-2"  id="column" style="style="display:none;">        
+                                                     <label id="sinopeso" style="display:none;">Valor de la propina en Pesos ($)</label><input type="text"  class ="form-control" id="propi" name="propi" style="display:none;" value="0" />
+                                                     
+                                                  </div>
+                                           </div> 
+
+                                          <div class="form-group row"> 
+                                             <div class=" col-12 col-md-10">
+                                                   <img src="imagenes/icon_help.png" title="¿Cómo conocí al cliente?">&nbsp;&nbsp;<label for="origen">Origen:</label>
+                                                     <select name="origen" class="form-control">
+                                                      <option value="">--Seleccione--</option>
+                                                      <option>Telefono</option>
+                                                      <option>Walk In</option>
+                                                      <option>Correo</option>
+                                                      <option>Referenciado</option>
+                                                      <option>Ejecutivo Ventas</option>
+                                                      <option>Reservas</option>
+                                                      <option>Web</option>
+                                                      </select>
+                                                  </div>
+                                           </div> 
+
+                                           <div class="form-group row"> 
+                                             <div class=" col-12 col-md-10">
+                                                   <img src="imagenes/icon_help.png" title="Sistema de crédito a manejar en esta cotización.">&nbsp;&nbsp;<label 
+                                                   for="formadepago">Forma de Pago</label>
+
+                                                  <select name="pago" class="form-control">
+
+                                                    <option value="">--Seleccione--</option>
+                                                    <option>Pago Directo</option>
+                                                    <option>Cheque</option>
+                                                    <option>Tarjeta Credito</option>
+                                                    <option>Tarjeta Debito</option>
+                                                    <option>Transferencia</option>
+                                                    <option>Consginación</option>
+                                                    <option>Cuenta Compañia</option>
+
+                                                  </select>
+                                                   
+                                            </div>
+                                           </div> 
+
+                                           <div class="form-group row"> 
+                                             <div class=" col-12 col-md-10">
+                                                   <img src="imagenes/icon_help.png" title="Asesor creador de la cotización, cargará automáticamente el usuario logueado.">&nbsp;&nbsp;<label for="cotizacioncreada">Cotizacion Creada por</label>
+
+                                                   <input type="text"  class ="form-control" name="organizadopor"  value="' . $_SESSION["nombre"] . '" id="organizadopor" placeholder="Organizado Por">
+
+
+                                                     
+                                                  </div>
+                                           </div> 
+
+                                            <div class="form-group row"> 
+
+                                             <div class=" col-12 col-md-10">
+                                                   <img src="imagenes/icon_help.png" title="Persona responsable del evento.">&nbsp;&nbsp;<label for="organizador">Organizador o presentador Principal</label>
+                                                  <input type="text" name="organizador"  value="" id="organizador" placeholder="Organizador" class="form-control">
+                                                  <input type="hidden" name="usu" value="' . $_SESSION["usuario"] . '">
+
+                                                  </div>
+
+                                           </div>';
+
+
+                                                 }
+
+
+                                                    
+                                                     $modevent.='<button class="btn btn-primary  btn-block btn-sm ml-2 mt-5" type="submit" name="gcli" style="width:80%; height:50px;" >Modificar Requerimientos</button>
+                                                
+
+                                                 <br>
+                                                 <br>
+
+                                                 
+
+
+                                     </form>
+
+
+                              </div>';
+
+                                     echo $modevent;
+
+
+
+
+                }
+
+                              
+
+
+ 
  
 }
 

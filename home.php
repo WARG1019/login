@@ -55,6 +55,28 @@ if (isset($_GET["usu"])){
 }
 
 
+if(isset($_GET["requeri"])){
+
+   $c = $_GET["c"];
+
+    $b = $_GET["b"];
+
+    $requeri = $_GET["requeri"];    
+
+}
+
+
+if(isset($_POST["requeri"])){
+
+   $c = $_POST["c"];
+
+    $b = $_POST["b"];
+
+    $requeri = $_GET["requeri"];    
+
+}
+
+
 if(!isset($_POST["clien"])){
 
     $_POST["clien"] = "Ninguno";
@@ -278,6 +300,20 @@ if(!isset($_POST["clien"])){
                         case 7:
 
                         echo $metodo -> ver_requerimiento();
+
+                        break;
+
+                        case 8:
+
+                        echo $metodo -> ver_pre_cotizacion();
+
+                        break;
+
+                        case 9:
+
+                        echo $metodo -> editar_evento($requeri);
+
+                        break;
 
                      }
 
