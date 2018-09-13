@@ -1364,7 +1364,6 @@ function valor($cliente, $valor_por_defecto){
 
                                             $cond = "where ae_id_requerimiento=" . $resu["ae_id_requerimiento"] . "";
                                             $cond1 = "where ae_id_requerimiento = " . $resu["ae_id_requerimiento"]." and ubicaciones.ae_desc_ubicacion = requerimientos.ubicacion";
-                                            echo "<script>alert('$cond1');</script>";
                                             $nombre = $resu["cliente"];
                                             $modevent.='  
 
@@ -1442,7 +1441,6 @@ function valor($cliente, $valor_por_defecto){
                                                      
                                                      $id = $rest["ae_id_requerimiento"]; 
 
-                                                     echo "<script>alert('$id')</script>";
           
                                                      $modevent.="<select name='ubi' class='form-control'>";
 
@@ -1587,6 +1585,32 @@ function valor($cliente, $valor_por_defecto){
 
 
                                      </form>
+
+                                     <script>
+                      
+
+                      document.getElementById("propina2").addEventListener("click",verificar,false);
+
+                      function verificar(){
+                         
+                          if(document.getElementById("propina2").checked == true){ 
+                         document.getElementById("sinopeso").style.display="block";
+                         document.getElementById("propi").style.display="block";
+
+                          }
+
+                          else { 
+
+                                document.getElementById("sinopeso").style.display="none";
+                                document.getElementById("propi").style.display="none"; 
+                              } 
+
+
+                        }
+
+                      
+
+                      </script>
 
 
                               </div>';
