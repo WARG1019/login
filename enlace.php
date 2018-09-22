@@ -16,6 +16,10 @@ require("conexion/conexion.php");
    
     <script src="js/jquery.min.js"></script>
 
+    <script src="js/vue.js"></script>
+    
+    <script src="js/reactiv.js"></script>
+    
 
     <!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>!-->
     
@@ -48,39 +52,28 @@ require("conexion/conexion.php");
     <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
     
-    <!--<script src="js/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+  
 
-    <link href="js/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+            
 
-
-    <link href="js/jquery-ui/jquery-ui.structure.min.css" rel="stylesheet">
-
-    <link href="js/jquery-ui/jquery-ui.theme.min.css" rel="stylesheet">-->
-
-
-
-    <!--<link rel="stylesheet" href="bootstrap/jquery.ui.min.css" />
-    <script src="js/jquery-ui.min.js" type="text/javascript"></script>-->
-
-
-
-    <script type="text/javascript">
-                $(document).ready(function() {  
-                $ (".fancybox"). fancybox();
+               <script type="text/javascript">
+                $(document).ready(function() { 
+                $(".fancybox"). fancybox();
                 });
 
 
 
             $("#enlace12").fancybox({
-                width       : '90%',
-                height      : '90%',
-                maxWidth    : 800,
+                width       : '350%',
+                height      : '350%',
+                type        : 'iframe',
+                maxWidth    : 1900,
                 maxHeight   : 600,
                 fitToView   : false,
                 autoSize    : false,
                 closeClick  : false,
                 openEffect  : 'none',
-                closeEffect : 'none',
+                closeEffect : 'none'
             });
 
 
@@ -871,7 +864,7 @@ $creareq='
               </div>
             </div>
         </div> 
-            <div class="container ">
+            <div class="container" id="nuevo">
                <div class="row">
                   <div class="col-12">
                     <form id="formcrereq" name="form1" method="post">
@@ -965,30 +958,28 @@ $creareq='
                             <div class="form-group row"> 
                              <div class=" col-12 col-md-10">
                                 <img src="imagenes/icon_help.png" title="Activar la opcion de propina le permite digitar el valor para la propina.">&nbsp;
-                                   <label for="propina" class="form-check-label">
-                                   <input type="checkbox" value="0" id="propina2" name="propina2"/>&nbsp;&nbsp;Habilitar propina
+                                   <label for="propina" class="form-check-label"><input type="checkbox" value="0" id="propina2" name="propina2" v-model="checked" />&nbsp;&nbsp;Habilitar propina
                                    </label>
                                   </div> 
-                                     
-                                     <div class="col-12 col-md-10 mt-2"  id="column" style="style="display:none;">        
-                                     <label id="sinopeso" style="display:none;">Valor de la propina en Pesos ($)</label><input type="text"  class ="form-control" id="propi" name="propi" style="display:none;" value="0" />
+                                
+                                     <div class="col-12 col-md-10 mt-2"  id="column" v-if="checked">        
+                                     <label id="sinopeso" v-if="checked">Valor de la propina en Pesos($)</label><input type="text"  class ="form-control" id="propi" name="propi" v-if="checked" value="0" />
                                      
                                   </div>
+                                  
                            </div> 
 
                           <div class="form-group row"> 
                              <div class=" col-12 col-md-10">
-                                   <img src="imagenes/icon_help.png" title="¿Cómo conocí al cliente?">&nbsp;&nbsp;<label for="origen">Origen:</label>
+                                   <img src="imagenes/icon_help.png" title="¿Cómo conocí al cliente?">&nbsp;&nbsp;
+                                   <label for="origen">Origen:</label>
                                      <select name="origen" class="form-control">
-                                      <option value="">--Seleccione--</option>
-                                      <option>Telefono</option>
-                                      <option>Walk In</option>
-                                      <option>Correo</option>
-                                      <option>Referenciado</option>
-                                      <option>Ejecutivo Ventas</option>
-                                      <option>Reservas</option>
-                                      <option>Web</option>
+                                      <option v-for="orig in services" 
+                                       :value="orig.id"
+                                       v-text="orig.name">
+                                       </option>
                                       </select>
+                                    
                                   </div>
                            </div> 
 
@@ -1047,37 +1038,7 @@ $creareq='
 
 
                      </form>
-
-
-
-                      <script>
-                      
-
-                      document.getElementById("propina2").addEventListener("click",verificar,false);
-
-                      function verificar(){
-                         
-                          if(document.getElementById("propina2").checked == true){ 
-                         document.getElementById("sinopeso").style.display="block";
-                         document.getElementById("propi").style.display="block";
-
-                          }
-
-                          else { 
-
-                                document.getElementById("sinopeso").style.display="none";
-                                document.getElementById("propi").style.display="none"; 
-                              } 
-
-
-                        }
-
-                      
-
-                      </script>
-
-
-
+      
 
                     </div>
                    </div>
@@ -1106,7 +1067,7 @@ function listar_cliente(){
                     <form action="../home.php?c=5&b=3" method="post" id="miform">
                      <input type="hidden" name=c value="5">
                      <input type="hidden" name=b value="3">
-                      <table id="clientes" style="width:800px; color:black;" class="table table-responsive table-hover">
+                      <table id="clientes" style="color:black;" class="table table-responsive table-hover">
                       <thead class="thead-inverse">
                          <tr>
                               <th><b>Nombre</b></th>
@@ -1131,7 +1092,7 @@ function listar_cliente(){
                                       <td>'. utf8_encode($reg['ae_nom_cliente']) . '</td>
                                       <td>' . $reg['ae_doc_cliente'] . '</td>
                                                                   <td>' . $reg['ae_tel_cliente'] . '</a></td>
-                                                                  <td>' . $reg['ae_email_cliente'] . '</a></td>
+                                                                  <td style="width:100px;">' . $reg['ae_email_cliente'] . '</a></td>
 
                                                                   <td>' . $reg['ae_tipo_cliente'] . '</a></td>
 
@@ -1246,12 +1207,11 @@ $this->seleccion3("requerimientos r,clientes cl", "*", "where
 $r = mysql_query($this->query);  
 
 $requ = ' 
-
   <div class="container">
         <div class="row">
           <div class="col-12 col-md-12">
 
-                <h1 class="mt-2 mb-2">Listado de Pre-Cotizaciones</h1>
+                <h2 class="mt-2 mb-3">Listado de Pre-Cotizaciones</h2>
                     
                       <table style="color:black;" class="table table-responsive table-hover">
                       <thead class="thead-inverse">
@@ -1278,11 +1238,11 @@ $requ = '
             $rs = mysql_query($sql);
             $reg3 = mysql_fetch_array($rs);
             $requ.= '<tr>
-                    <td><a href="home.php?b=5&requer=' . $req . '" title="Ver Cotizacion" >' . ($reg['ae_id_requerimiento']) . '</a></td>
-                        <td><a href="home.php?c=8&b=3&requeri=' . $req . '">' . $reg['ae_nom_cliente'] . '</a></td>
-                      <td><a href="home.php?c=8&b=3&requeri=' . $req . '">' . utf8_encode($reg['ae_desc_requerimiento']) . '</a></td>
-                        <td><a href="home.php?c=8&b=3&requeri=' . $req . '">' . $reg['ae_fecha_inicial'] . '</a></td>
-                        <td><a href="home.php?c=8&b=3&requeri=' . $req . '" >' . $reg['ae_fecha_final'] . '</a></td>
+                    <td><a href="home.php?c=8&b=3&requeri=' . $req . '" title="Ver Cotizacion" style="color:black;">' . ($reg['ae_id_requerimiento']) . '</a></td>
+                        <td><a href="home.php?c=8&b=3&requeri=' . $req . '" title="Ver Cotizacion" style="color:black;">' . $reg['ae_nom_cliente'] . '</a></td>
+                      <td><a href="home.php?c=8&b=3&requeri=' . $req . '" title="Ver Cotizacion" style="color:black;">' . utf8_encode($reg['ae_desc_requerimiento']) . '</a></td>
+                        <td><a href="home.php?c=8&b=3&requeri=' . $req . '" title="Ver Cotizacion" style="color:black;">' . $reg['ae_fecha_inicial'] . '</a></td>
+                        <td><a href="home.php?c=8&b=3&requeri=' . $req . '" title="Ver Cotizacion" style="color:black;">' . $reg['ae_fecha_final'] . '</a></td>
 
                         <td>
 
@@ -1622,8 +1582,43 @@ function valor($cliente, $valor_por_defecto){
 
                 }
 
-                              
+           
+           function ver_pre_cotizacion($requeri){
+           
+              $this->seleccion("categorias ca,items_req ir,items it", " max(ir.ae_dia), ae_dia ", "where it.ae_id_item=ir.id_item
+                             and ir.id_requerimiento='$requeri' and ca.ae_id_categoria=it.id_categoria group by ae_dia");
+                            
+              $rc = mysql_query($this->query);
+              $this->seleccion("impuestos", "*", "");
+              $imp = mysql_query($this->query);
+              $impuesto = mysql_fetch_array($imp);
+              $this->seleccion("cotizaciones", "*", "where id_requerimiento=" . $requeri . "");
+             
+              $r2 = mysql_query($this->query);
+              $this->seleccion("ordenes", "*", "where id_requerimiento=" . $requeri . "");
+              $r3 = mysql_query($this->query);
+              $ord = mysql_num_rows($r3);
+              $this->seleccion("prefacturas", "*", "where id_requerimiento=" . $requeri . "");
+              $r4 = mysql_query($this->query);
+              
+              $pre = mysql_num_rows($r4);
+              $this->seleccion("cotizaciones", "*", "where id_requerimiento=" . $requeri . "");
+              $r5 = mysql_query($this->query);
+              
+              $ncot = mysql_num_rows($r5);
+              
+              $res = mysql_fetch_array($r2);
 
+              $srquery="select ae_tipo_cliente from requerimientos, clientes where ae_id_requerimiento='".$requeri."' and ae_nom_cliente=cliente;";
+              $newquery=mysql_query($srquery);
+
+                echo "<script>alert('ejecucion correcta de la funcion');</script>";
+
+           }
+
+     
+
+                              
 
  
  

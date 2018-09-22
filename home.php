@@ -98,25 +98,7 @@ if(!isset($_POST["clien"])){
     <script src="js/all.js"></script>
 
 	<link href="bootstrap/estilos2.css" rel="stylesheet"/>
-    
-    <!-- Add mousewheel plugin (this is optional) -->
-    <script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
-    
-    <!-- Add fancyBox -->
-    <link rel="stylesheet" href="fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
 
-    <script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-    
-    <!-- Optionally add helpers - button, thumbnail and/or media -->
-    <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
-
-    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
-
-    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
-    
-    <link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
-
-    <script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
 
     <script src="js/jquery.min.js"></script>
     
@@ -165,7 +147,7 @@ if(!isset($_POST["clien"])){
             </div>
 
          	<div class="col-md-3 mt-2">
-                      <div style="list-style: none;" class="dropdown show d-flex">
+                      <div style="list-style: none;" class="dropdown d-flex">
                             <h5 class="text-left">Usuario: <?php echo $_SESSION["user"];?></h5>
                             <a href="#" class="dropdown-toggle mt-2" role="button" style="text-decoration:none; color:white;" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             </a>
@@ -284,7 +266,7 @@ if(!isset($_POST["clien"])){
             <article class="col-12 mt-3 ">
               <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore, rerum!</p> !-->
               <div class="card  pt-5 pr-5 pl-5 pb-5">
-                  <div class="card-block" id="contenedor23" style="border:5px solid lightgray; border-radius:7px;">
+                  <div class="card-block" id="contenedor23">
 
                     <?php
 
@@ -334,7 +316,7 @@ if(!isset($_POST["clien"])){
 
                         case 8:
 
-                        echo $metodo -> ver_pre_cotizacion();
+                        echo $metodo -> ver_pre_cotizacion($requeri);
 
                         break;
 
@@ -364,8 +346,8 @@ if(!isset($_POST["clien"])){
                     $(".topnav").accordion({
                         accordion:true,
                         speed: 500,
-                        closedSign: ' ',
-                        openedSign: ' '
+                        closedSign: '  ',
+                        openedSign: '  '
 
                     });
                 });
@@ -392,14 +374,15 @@ if(!isset($_POST["clien"])){
                 </script>
 
 
-                
+                <script src="js/vue.js"></script>
+                <script src="js/reactiv.js"></script>
                 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
                 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
                 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
                  <script type="text/javascript">
                   var jQuery_3_2_15 = $.noConflict(true); 
-                 </script>   
+                 </script> 
                 
                 <script>
                  $(document).ready(function(){ // Esto imprime v1.9.1
@@ -407,7 +390,7 @@ if(!isset($_POST["clien"])){
                   console.log(jQuery_min().jquery);
                   console.log(jQuery_1_5_2().jquery);
                   console.log(jQuery_3_2_1().jquery);
-                  console.log(jQuery_3_2_15().jquery);
+                 console.log(jQuery_3_2_15().jquery);
                 });
                 </script>
 
