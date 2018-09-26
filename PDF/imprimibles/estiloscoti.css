@@ -1,0 +1,69 @@
+h1{
+   font-size:20px;
+    font-weight: bold;
+    margin:0px 0px 0px 50px;
+ 
+}
+
+p.encabezado0{
+           font-size:20px;
+           font-weight: bold;
+            margin:0px 0px 0px 50px;
+
+           }
+
+           header{
+               width:100%;
+               display:block;
+           }
+
+           .logo{
+               width:229px;
+               margin:auto;
+               border:5px solid white ;
+			 	}
+           p.encabezado1{
+           font-size:20px;
+           font-weight: bold;
+           margin:0px 0px 0px 50px;
+
+           }
+
+           p.cliente{
+            font-size:20px;
+            margin:0px 0px 0px 50px;
+           }
+
+           p.contacto{
+            font-size:20px;
+            margin:0px 0px 0px 50px;
+           }
+
+           p.telefono{
+            font-size:20px;
+            margin:0px 0px 0px 50px;
+           }
+
+           p.E-mail{
+            font-size:20px;
+            margin:0px 0px 0px 50px;
+           }
+           p.ciudad{
+            font-size:20px;
+            margin:0px 0px 0px 50px;
+           }
+
+           p.pa1{
+            font-size:20px;
+            margin:0px 0px 0px 50px;
+           }
+
+           p.pa2{
+            font-size:20px;
+            margin:0px 0px 0px 50px;
+           }
+
+           p{
+             font-size:15px;
+             margin:0px 0px 0px 50px;
+           }
