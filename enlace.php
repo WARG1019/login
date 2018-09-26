@@ -574,13 +574,13 @@ function crear_usuario(){
 
 
 function seleccion($tabla,$campo){
- $this->query="select ".$campo." from ".$tabla." ";
+ $this->query="select ".$campo." from ".$tabla;
   //echo $this->query;
 $this->cons=mysql_query($this->query);
 }
 
 function seleccion3($tabla,$campo,$cond){
- $this->query="select ".$campo." from ".$tabla." ".$cond."";
+ $this->query="select ".$campo." from ".$tabla." ".$cond;
   //echo $this->query;
 $this->cons=mysql_query($this->query);
 }
@@ -604,7 +604,7 @@ function seleccion2($tabla,$campo,$cond,$valor,$nombre,$id) {
         $sel.="<option value=''>--Seleccione--</option>";
         while ($res = mysql_fetch_array($r)) {
         if ($res[$valor] == $id){
-        $sel.="<option value=". $res[$valor] . "  selected>" . $res[$campo] . "</option>";
+        $sel.="<option value=". $res[$valor] . "selected>" . $res[$campo] . "</option>";
     }
     else {
      $sel.="<option value=". $res[$valor] . "  >" . $res[$campo] .  "</option>";
@@ -640,6 +640,31 @@ function seleccion2($tabla,$campo,$cond,$valor,$nombre,$id) {
     return $sel;
     
     }
+
+
+
+function label($tabla, $campo, $cond) {
+          $this->seleccion3($tabla,$campo,$cond);
+    //    $query = "select  " . $campo . " from " . $tabla . " " . $cond . "  order by 1 desc   ";
+        //$query="select * from empleados where ec_nom_empleado = 'prueba'";
+      //  $cons = mysql_query($query);
+        $res = mysql_fetch_array($this->cons);
+        $val = $res[$campo];
+        return ('<label>' . html_entity_decode($val) .  '</label>');
+    }
+
+
+function label2($tabla, $campo,$valor ,$cond) {
+          $this->seleccion3($tabla,$campo,$cond);
+    //    $query = "select  " . $campo . " from " . $tabla . " " . $cond . "  order by 1 desc   ";
+        //$query="select * from empleados where ec_nom_empleado = 'prueba'";
+      //  $cons = mysql_query($query);
+        $res = mysql_fetch_array($this->cons);
+        $val = $res[$valor];
+        return ('<label>' . $val .  '</label>');
+    }
+
+
 
 
  function mostrar_usuario(){
@@ -1585,42 +1610,516 @@ function valor($cliente, $valor_por_defecto){
            
            function ver_pre_cotizacion($requeri){
            
-              $this->seleccion("categorias ca,items_req ir,items it", " max(ir.ae_dia), ae_dia ", "where it.ae_id_item=ir.id_item
+             $this->seleccion("categorias ca,items_req ir,items it", " max(ir.ae_dia), ae_dia ", "where it.ae_id_item=ir.id_item
                              and ir.id_requerimiento='$requeri' and ca.ae_id_categoria=it.id_categoria group by ae_dia");
                             
               $rc = mysql_query($this->query);
               $this->seleccion("impuestos", "*", "");
               $imp = mysql_query($this->query);
               $impuesto = mysql_fetch_array($imp);
-              $this->seleccion("cotizaciones", "*", "where id_requerimiento=" . $requeri . "");
-             
+              $this->seleccion3("cotizaciones", "*", "where id_requerimiento=" . $requeri);
               $r2 = mysql_query($this->query);
-              $this->seleccion("ordenes", "*", "where id_requerimiento=" . $requeri . "");
+              $this->seleccion3("ordenes", "*", "where id_requerimiento = " . $requeri);
               $r3 = mysql_query($this->query);
               $ord = mysql_num_rows($r3);
-              $this->seleccion("prefacturas", "*", "where id_requerimiento=" . $requeri . "");
+              $this->seleccion3("prefacturas", "*", "where id_requerimiento = ".$requeri);
               $r4 = mysql_query($this->query);
-              
               $pre = mysql_num_rows($r4);
-              $this->seleccion("cotizaciones", "*", "where id_requerimiento=" . $requeri . "");
+              $this->seleccion3("cotizaciones", "*", "where id_requerimiento = ".$requeri);
               $r5 = mysql_query($this->query);
-              
               $ncot = mysql_num_rows($r5);
-              
               $res = mysql_fetch_array($r2);
-
+              //echo "<script>alert(".$res['ae_id_cotizacion'].");</script>";
               $srquery="select ae_tipo_cliente from requerimientos, clientes where ae_id_requerimiento='".$requeri."' and ae_nom_cliente=cliente;";
               $newquery=mysql_query($srquery);
 
-                echo "<script>alert('ejecucion correcta de la funcion');</script>";
+        
 
-           }
+     $cot = '
+         <div class="container">
 
-     
+            <div class="row">
 
+                   <div class="col-md-12">
+                     
+                         <p><strong>Estado : ';
+
+                         $estado = $res["ae_estado_cotizacion"];
+
+                         //echo "<script>alert('$requeri')</script>";
+
+                           if ($res["ae_estado_cotizacion"] == 0) {
+
+                            $cot.='Sin Aprobar</strong></p>';
+
+                             if($this->label("cotizaciones", "ae_id_cotizacion", "where id_requerimiento=" . $requeri) == ""){
+                               $enc = 'Cotización No. ' . $this->label("cotizaciones", "ae_id_cotizacion", "where id_requerimiento = " . $requeri); 
+                                 } else {
+
+                                   $enc = 'Cotización No. ' . $requeri;
+
+                                  }
+
+                                } else {
+                                 
+                                 $cot.='Aprobada</strong></p>
+
+                               </div>
+
+                             <div class="col-md-6">';
+                             
+                            
+                                  $enc = 'Orden No. ' . $this->label("ordenes", "ae_id_orden", "where id_requerimiento = ". $requeri);
+                                    
+                                    //echo "<script>alert('$enc')</script>";
+
+                                    }
+
+                                    @$coti.= $res["ae_id_cotizacion"];
+                                 
+                                  @$_GET["ubication"]=substr($this->label("requerimientos,ubicaciones", "ae_desc_ubicacion", "where ae_id_requerimiento=" . $requeri . "
+                                  and ubicacion=ae_desc_ubicacion"),7,length-8);
+                                  @$_GET["montage"]=substr($this->label("requerimientos,tipo_montaje", "ae_desc_tipo_montaje", "where requerimientos.tipo = tipo_montaje.ae_id_tipo_montaje and ae_id_requerimiento =" . $requeri),7,length-8);
+                                  @$_GET["quantitypeople"]=substr($this->label("requerimientos", "ae_num_personas", "where ae_id_requerimiento=" . $requeri) ,7,length-8);
+                                  @$_GET["horainic"]=substr($this->label("requerimientos", "ae_hora_ini", "where ae_id_requerimiento=" . $requeri) ,7,2);
+                                  @$_GET["horafina"]=substr($this->label("requerimientos", "ae_hora_fin", "where ae_id_requerimiento=" . $requeri) ,7,2);
+                                 @$_GET["mininic"]=substr($this->label("requerimientos", "ae_hora_ini", "where ae_id_requerimiento=" . $requeri) ,10,2);
+                                 @$_GET["minfina"]=substr($this->label("requerimientos", "ae_hora_fin", "where ae_id_requerimiento=" . $requeri) ,10,2);
+                                 $cot.='</p>
+
+                                 <p><h2>' . $enc . '</h2></p>
+
+                            </div> 
+
+                             <div class="col-md-6">
+                              <p id="pes"><strong>Fecha Pre-Cotizacion:</strong><br />' . $this->label("requerimientos", "ae_fecha_cotizacion", "where ae_id_requerimiento=" . $requeri) . '</p>
+                              </div>
+
+                             <div class="col-md-6">
+                             
+                             <p><strong>Fecha Cotizacion:</strong> ' . $this->label("cotizaciones", "ae_fecha_cotizacion", "where ae_id_cotizacion=" . $requeri) . '</p>
+
+                             </div> 
+
+                             <div class="col-md-6">
+                             
+                                <p><strong>Cliente:</strong> ' . $this->label("requerimientos,clientes", "ae_nom_cliente", "where ae_id_requerimiento=" . $requeri . " and 
+                                 ae_nom_cliente=cliente") . '</p>
+
+                             </div>
+
+                              <div class="col-md-6">
+                             
+                                <p><strong>Contacto:</strong> ' . $this->label("requerimientos", "contacto", "where ae_id_requerimiento=" . $requeri) . '</p>
+
+                             </div>
+                             
+                             <div class="col-md-6">
+                             
+                                <p><strong>Documento('.$this->label("requerimientos,clientes", "ae_tipo_documento", "where ae_id_requerimiento=" . $requeri . " and 
+                                  ae_nom_cliente=cliente")  .'):</strong> '.
+                                  $this->label("requerimientos,clientes", "ae_doc_cliente", "where ae_id_requerimiento=" . $requeri . " and 
+                                    ae_nom_cliente=cliente") . '</p>
+
+                             </div>
+
+                             <div class="col-md-6">
+                             
+                                <p><strong>Email:</strong> ' . $this->label("requerimientos,clientes", "ae_email_cliente", "where ae_id_requerimiento=" . $requeri . " and 
+                                  ae_nom_cliente=cliente") . '</p>
+
+                             </div>
                               
+                              <div class="col-md-6">
+                             
+                                 <p><strong>Telefono:</strong> ' . $this->label("requerimientos,clientes", "ae_tel_cliente", "where ae_id_requerimiento=" . $requeri . " and 
+                                    ae_nom_cliente=cliente") . '</p>
 
- 
+                             </div>
+
+                             <div class="col-md-6">
+                             
+                                  <p><strong>Observaciones Comerciales:</strong> <br /> <details><code>' . $this->label("requerimientos", "obs_comerciales", "where ae_id_requerimiento=" . $requeri) . '</code></details></p>
+
+                             </div>
+
+                            <div class="col-md-6">
+                             
+                               <p><strong>Observaciones Operativas:</strong> <br /><details> ' . $this->label("requerimientos", "obs_operativas", "where ae_id_requerimiento=" . $requeri) . '</details></p>
+                            </div>
+                            
+                            <div class="col-md-6">
+                             
+                             <p><b>Fecha Inicial:</b> ' . $this->label("requerimientos", "ae_fecha_inicial", "where ae_id_requerimiento=" . $requeri) . '</p>
+                               
+                            </div>
+
+                            <div class="col-md-6">
+                             
+                              <p><strong>Fecha Final:</strong> ' . $this->label("requerimientos", "ae_fecha_final", "where ae_id_requerimiento=" . $requeri) . '</p>
+                               
+                            </div>
+                            
+                            <div class="col-md-6">';
+                             
+                               if ($_GET["horainic"]<=12){
+                                $cot.='<p><strong>Hora Inicio : </strong>'.$this->label("requerimientos", "ae_hora_ini", "where ae_id_requerimiento=" . $requeri)  .   '  am </p>';
+                                } else {
+                                $cot.='<p><strong>Hora Inicio : </strong>'.$this->label("requerimientos", "ae_hora_ini", "where ae_id_requerimiento=" . $requeri)  .   '  pm </p>' ; 
+                                } 
+                               
+                            $cot.='</div>
+
+                            <div class="col-md-6">';
+                              
+                              if ($_GET["horafina"]<=12){
+                                $cot.='<p><strong>Hora Fin:</strong> '. $this->label("requerimientos", "ae_hora_fin", "where ae_id_requerimiento=" . $requeri)  .   '  am </p>';
+                                } else {
+                                $cot.='<p  id="pes"><strong>Hora Fin:</strong> '. $this->label("requerimientos", "ae_hora_fin", "where ae_id_requerimiento=" . $requeri)  .   '  pm </p>' ; 
+                                } 
+
+                               $cot.='</div>
+
+                               <div class="col-md-6">
+
+                                <p><strong>Forma de pago:</strong> ' . $this->label("requerimientos", "pago", "where ae_id_requerimiento=" . $requeri) . '</p>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                  
+                                  <p><strong>Ubicacion:</strong> ' . $this->label("requerimientos,ubicaciones", "ae_desc_ubicacion", "where ae_id_requerimiento=" . $requeri . "
+                                     and ubicacion=ae_desc_ubicacion") . '</p>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                  
+                                  <p  id="pes"><strong>Tipo de evento:</strong> ' . $this->label("requerimientos,tipo_montaje", "ae_desc_tipo_montaje", "where requerimientos.tipo = tipo_montaje.ae_id_tipo_montaje and ae_id_requerimiento =" . $requeri) . '</p>
+
+                                </div>
+                             
+
+                                <div class="col-md-6">
+
+                                   <p><strong>Cantidad de personas:</strong> ' . $this->label("requerimientos", "ae_num_personas", "where ae_id_requerimiento=" . $requeri) . '</p>
+
+                                </div>
+                               
+                               <div class="col-md-6">
+
+                                 <p><strong>Nombre del Evento:</strong> ' . $this->label("requerimientos", "ae_desc_requerimiento", "where ae_id_requerimiento=" . $requeri) . '</p>'; 
+
+                                 $cot.='</div>
+
+           </div>
+
+        </div>   
+
+
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+             
+                  <h1 class="mt-5">Detalles de la Cotización:</h1>
+
+                  <table class="table mt-5 table-responsive">';
+
+                  $diaAnt = "";
+
+                  while ($resu = mysql_fetch_array($rc)) 
+                   {
+
+                    $this->seleccion3("items_req ir,items it, tipo_servicio ts, categorias c, ubicaciones u", "distinct ir.ae_id_item_req, c.ae_desc_categoria, it.ae_desc_item decit,sum(ir.cantidad) cantidad,ir.ae_dia,ir.id_ubicacion, u.ae_desc_ubicacion, FORMAT(it.ae_valor,0) vu, FORMAT(sum(it.ae_valor+ir.descuento),0) nuevdesc,FORMAT(sum(((it.ae_valor+ir.descuento)*ir.cantidad)+(((it.ae_valor+ir.descuento)*ir.cantidad)*ir.iva)/100),0) vt,ir.iva,ir.descuento, ir.descripcion,  ae_desc_tipo_servicio", "where it.ae_id_item=ir.id_item and c.ae_id_categoria = it.id_categoria and u.ae_id_ubicacion = ir.id_ubicacion and ir.id_requerimiento='$requeri' and ir.id_tipo_servicio = ts.ae_id_tipo_servicio and ir.ae_dia = " . $resu["ae_dia"] . " GROUP BY ir.ae_id_item_req, c.ae_desc_categoria, decit, ir.iva, ir.descuento, ir.descripcion, ts.ae_desc_tipo_servicio ORDER BY ir.ae_dia");
+
+                      $r = mysql_query($this->query);
+
+                      //echo "<script>alert('$r');</script>";
+
+                      $cateAnt = "";
+                      
+                       //echo "<script>alert('$cateAnt');</script>";
+
+                      while ($rese = mysql_fetch_array($r))
+                      {
+                         
+                       //echo "<script>alert('esta entrando');</script>";
+                         
+                        if($diaAnt=="")
+                         {  
+                    
+                          $diaAnt = $resu["ae_dia"];
+
+                          //echo "<script>alert(".$resu["ae_dia"].")</script>";
+
+                           $cot.="<tr>
+                                <td colspan='10' style='background-color:#ffffff; color:black;'><p><b><h2>Día: " . $diaAnt."</h2></b></p>";
+
+                           $cot.="<h6>Ubicaciones para este día:<br>";
+
+                           $sqlUbi = "select * from tipo_montaje tm, ubicaciones u, ubicaciones_req ur where ur.id_requerimiento = ".$requeri." and ur.id_ubicacion = u.ae_id_ubicacion and ur.id_montaje = ae_id_tipo_montaje and ur.dia = ".$resu["ae_dia"];
+
+                            $resUbi = mysql_query($sqlUbi);
+                               while($rUbi = mysql_fetch_array($resUbi))
+                               {
+                                $cot.="
+                                <p><h6>Salon: ".$rUbi["ae_desc_ubicacion"]."<br>
+                                 Tipo Montaje: ".$rUbi["ae_desc_tipo_montaje"]."<br>
+                                Pax: ".$rUbi["cant_personas"]."</p></h6>";
+                               }
+                               $cot.="</td>
+
+                              </tr>";
+                    
+                          }
+
+                          
+                              $resaedia=$rese["ae_dia"];
+                        
+                          // echo "<script>alert('el valor  de resaedia es : $resaedia');</script>";
+
+                             if($diaAnt!=$rese["ae_dia"])
+                            {
+                                
+                          //  echo "<script>alert(' valor de diaAnt es diferente de resaedia');</script>";
+                            //$cot.="<tr ><td colspan='5' bgcolor='#ffffff' style='background-color:#ffffff;'><p><b>Categoria: " . $resu["ae_desc_categoria"] . "</b></p></td></tr>";
+                            $cot.="<tr ><td colspan='10' bgcolor='#ffffff' style='background-color:#ffffff;'><p><b><h2>Día: " . $rese["ae_dia"] . " -</h2></b></p>";
+                            $cot.="<h6>Ubicaciones para este día:<br>";
+                            $sqlUbi = "select * from tipo_montaje tm, ubicaciones u, ubicaciones_req ur where ur.id_requerimiento = ".$requeri." and ur.id_ubicacion = u.ae_id_ubicacion and ur.id_montaje = ae_id_tipo_montaje and ur.dia = ".$rese["ae_dia"];
+                            //echo $sqlUbi;
+                            $resUbi = mysql_query($sqlUbi);
+                            while($rUbi = mysql_fetch_array($resUbi))
+                            {
+                                $cot.="<p><h6>Salon: ". $rUbi["ae_desc_ubicacion"]."<br>
+                                Tipo Montaje: ". $rUbi["ae_desc_tipo_montaje"]."<br>
+                                Pax: ".$rUbi["cant_personas"]."</p></h6>";
+                            }
+                            $cot.="</td></tr>";
+                            $diaAnt = $rese["ae_dia"];
+
+                        }
+
+                          $cate=$rese["ae_desc_categoria"];         
+                            if($cateAnt!=$rese["ae_desc_categoria"])
+                             {
+
+                                //  echo "<script>alert('el valor de cateant es al cumplir condicion : $cate');</script>";
+                                  $cot.="<tr ><td colspan='10' bgcolor='#ffffff' style='background-color:#ffffff;'><p><b>Categoria: " . $rese["ae_desc_categoria"] . "</b></p></td></tr>"; 
+                                  $cot.="<tr>
+                                          <th style='color:black;'><b>Item</b></th>
+                                          <th style='color:black;'><b>Tipo Serv.</b></th>
+                                          <th style='color:black;'><b>Descripción</b></th>
+                                          <th style='color:black;'><b>Ubicación</b></th>  
+                                          <th style='color:black;'><b>Cant.</b></th>              
+                                          <th style='color:black;'><b>Unitario</b></th>
+                                          <th style='color:black;'><b>IVA %</b></th>
+                                          <th style='color:black;'><b>Dto. %</b></th>
+                                          <th style='color:black;'><b>Total</b></th>
+                                          <th style='color:black;'><b>Opciones</th>";
+                                  $cateAnt=$rese["ae_desc_categoria"]; 
+                              }
+                          
+                             $cot.='<tr><td style="width:120px; color:black;">' . utf8_encode($rese["decit"]) . '</td>
+                              <td style="color:black;">' . utf8_encode($rese["ae_desc_tipo_servicio"]) . '</td>
+                              <td align="right" style="width:160px; color:black;">' . $rese["descripcion"] . '</td>
+                              <td align="right" style="color:black;">' . utf8_encode($rese["ae_desc_ubicacion"]) . '</td>
+                              <td align="right" style="color:black;">' . $rese["cantidad"] . '</td>';
+                              if($rese["vu"]==$rese["nuevdesc"]){
+                              $cot.='<td align="right" style="color:black;">' . $rese["vu"] . '</td>';
+                              }else
+                              {
+                              $cot.='<td align="right" style="color:black;"><b style="color:red;">'.$rese["nuevdesc"].'</b><br /><c style="text-decoration: line-through;">'.$rese["vu"].'</c></td>';
+                                  }
+                              $cot.=' 
+                              <td align="right" style="color:black;">' . $rese["iva"] . '</td>
+                              <td align="right" style="color:black;">' . $rese["descuento"] . '</td>
+                              <td align="right" style="color:black;">' . $rese["vt"] . '</td>
+                              <td align="right" style="color:black;">
+                                  <a href="templates/editar_item.php?req=' . $requeri . '&item='.$rese["ae_id_item_req"].'&lightbox[iframe]=true&lightbox[width]=700&lightbox[height]=400" 
+                          class="lightbox"><img src="imagenes/pencil.png" style="width:16px;" alt="Editar" /></a>
+                                  <a href="templates/borrar_item.php?req=' . $requeri . '&item='.$rese["ae_id_item_req"].'&lightbox[iframe]=true&lightbox[width]=700&lightbox[height]=400" 
+                          class="lightbox"><img src="imagenes/minus-circle.png" style="width:16px;" alt="Eliminar" /></a>
+                                  <a href="templates/duplicar_items.php?req=' . $requeri . '&item='.$rese["ae_id_item_req"].'&dia='.$rese["ae_dia"].'&lightbox[iframe]=true&lightbox[width]=700&lightbox[height]=400" 
+                          class="lightbox"><img src="imagenes/plus-circle.png" style="width:16px;" alt="Copiar" /></a>
+                              </td>
+                              </tr>';    
+                           
+
+                       }  
+   
+                   
+                   }
+
+                 $cot.=' 
+                  
+
+
+                  </table> 
+                  
+                  <table class="table">
+                  
+                  <tr>
+
+                      <td style="color:black;font-weight:bold;">Sub Total: $' . $this->label2("items,items_req", "FORMAT(sum(ae_valor*cantidad),0) as total", "total", "where 
+                      id_requerimiento=" . $requeri . " and ae_id_item=id_item") .  '</td>
+
+                      <td style="color:black;font-weight:bold;">Ajustes: $ '. $this->label2("items,items_req", "FORMAT(sum(ae_valor*cantidad*(descuento/100)),0) as dto", "dto", "where 
+                      id_requerimiento=" . $requeri . " and ae_id_item=id_item") . '</td>';
+
+                      $sqlDesc = "select sum(ae_valor*cantidad*(descuento/100)) as dto from items,items_req where id_requerimiento=1 and ae_id_item=id_item";
+                      $resDesc = mysql_query($sqlDesc);
+                      $rDesc = mysql_fetch_array($resDesc);
+                      $desc = $rDesc["dto"];
+
+                      $cot.='<td style="color:black;font-weight:bold;">Impuesto: $'.$this->label2("items,items_req", "FORMAT(sum(ae_valor*cantidad*(iva/100)),0) as imp", "imp", "where 
+                      id_requerimiento=" . $requeri . " and ae_id_item=id_item") .  '</td>';
+
+                      $cot.='<td style="color:black;font-weight:bold;">Total: $'.$this->label2("items,items_req", "FORMAT(sum((ae_valor+descuento)*cantidad*(iva/100)+((ae_valor+descuento)*cantidad)),2) as imp", "imp", "where 
+                      id_requerimiento=" . $requeri . " and ae_id_item=id_item") .  '</td>';
+
+
+                      @$total=substr($this->label2("items,items_req", "FORMAT(sum((ae_valor+descuento)*cantidad*(iva/100)+((ae_valor+descuento)*cantidad)),2) as imp", "imp", "where 
+                      id_requerimiento=" . $requeri . " and ae_id_item=id_item"),7,length-11);
+
+
+
+                      $ana='<a class="lightbox" target="_blank" href="';
+                      $bna='" target='.'><input type="button" name="envmail" id="envma" value="Orden de Servicio" class="button lightblue icon"></a>'; 
+                       
+                      $cot.='
+                        <input type="hidden" name="total" id="total" value="'.$total.'" />
+                        </tr>
+                        </table>                         
+
+                    </div>';
+                     
+                        
+                  if ($estado == 0) {
+                  $cot.='
+                  <div class="col-3 col-md-3 mt-5">
+                       <form method="post" action="login.php">
+                            <input type="hidden" name="b" value="5">
+                            <input type="hidden" name="c" value="19">
+                          <input type="hidden" name="requerimiento" value="' . $requeri . '">
+                          <input type="hidden" name="requer" value="' . $requeri . '">
+                          <input type="hidden" name="coti" value="' . $coti . '">
+                    <button type="submit" name="aprueba" id="envma" class="btn btn-success" style="width:200px; height:80px;"><i class="fas fa-calendar-alt fa-2x fa-lg"></i>
+                      <br>
+                        <label for="aprobar"><strong>Aprobar</strong></label>
+                    </button>
+                   </form>
+                  </div>';
+             //$cot.='<td><input type="submit" name="envmail" id="envma" value="Email" class="button lightblue icon"></td><tr>';
+             $cot.='<div class="col-3 col-md-3 mt-5">
+                       <a href="PDF/imprimibles/cotizacion.php?requeri='.$requeri.'" target="_blank" name="envmail" id="envma" class="btn btn-primary" style="width:200px; height:80px;">
+                         <i class="fas fa-calendar-alt fa-2x fa-lg"></i>
+                       <br>
+                        <label for="cotizacion"><strong>Ver Cotizacion</strong></label>
+                       </a>
+                   </div>';
+
+                 } else {
+
+
+                   $otroquery=mysql_fetch_array($newquery);
+                   $comp=$otroquery["ae_tipo_cliente"];
+                   if($comp == "Empresarial"){
+                   $cot.='
+                     <div class="col-3 col-md-3  mt-5">
+                        <a data-fancybox-type="iframe href="templates/contacto.php?req=' . $requeri .' target="_blank" class="btn btn-success" style="width:200px; height:80px;">
+                         <i class="fas fa-calendar-alt fa-2x fa-lg"></i>
+                          <br>
+                          <label for="contacto" style="color:white;"><strong>Contacto</strong></label>
+                        </a>
+                      </div>';
+
+                       } else{
+                        
+
+                     }  
+  
+                   
+                    $cot.='<div class="col-3 col-md-3  mt-5">
+                       <a href="PDF/imprimibles/cotizacion.php?requeri='.$requeri.'" target="_blank" name="envmail" id="envma" class="btn btn-primary" style="width:200px; height:80px;">
+                         <i class="fas fa-calendar-alt fa-2x fa-lg"></i>
+                       <br>
+                        <label for="cotizacion"><strong>Ver Cotizacion</strong></label>
+                       </a>
+                   </div>
+
+                    <input type="hidden" id="requeri" name="requeri" value="'. $requeri . '"/>'; 
+                   
+                    if ($ord == 0) {
+                    $cot.='<!--<tr>
+                     <td><input name="corden" type="submit" id="gor" value="Orden" class="button lightblue icon"></td>
+                     </tr>-->';
+                    }
+
+                   if ($pre == 0 and $ord == 1) {
+                   /* $cot.='<tr>
+                        <td><a  class="button lightblue icon" href="PDF/imprimibles/prefactura.php?req=' . $req . '" target="_blank">
+                         &nbsp;&nbsp;Prefactura&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+                         </tr>';*/
+                        }
+                   }
+
+                  
+                   $cot.='
+                    <div class="col-3 col-md-3 mt-5">
+                     <a id="enlace12" data-fancybox-type="iframe" href="templates/observaciones_evento.php?requeri=' . $requeri.'" class="btn btn-success" name="envmail" id="envma" style="width:200px; height:80px;">
+                        <i class="fas fa-calendar-alt fa-2x fa-lg"></i>
+                        <br>
+                        <label for="observacion">Observaciones</label>
+                      </a>
+                    </div> 
+                     ';
+                  $cot.='
+                  <div class="col-3 col-md-3 mt-5">
+                    <a href="templates/ubicaciones_evento.php?requeri='.$requeri.'&ubic='. $_GET["ubication"].
+                      '&mont='.$_GET["montage"].'&cantp='.$_GET["quantitypeople"].'&horaini='.$_GET["horainic"].'&horafin='.$_GET["horafina"].'&minini='.$_GET["mininic"].'&minfin='.$_GET["minfina"].'&lightbox[iframe]=true&lightbox[width]=1000&lightbox[height]=620"
+                        target="_blank" value="Ubicaciones" class="btn btn-primary" style="width:200px; height:80px;">
+                          <i class="fas fa-calendar-alt fa-2x fa-lg"></i>
+                        <br>
+                          <label for="ubicaciones"><strong>Ubicaciones</strong></label> 
+                    </a>
+                  </div>';
+        
+                    
+                    if($ncot==0){
+                      $cot.='
+                      <div class="col-3 col-md-3 mt-5"> 
+                         <a href="login.php?gcot=1&requer='.$requeri.'&b=5&requeri='.$requeri.'" title="Guardar Cotización" class="btn btn-primary" style="width:200px; height:80px;">
+                           <i class="fas fa-calendar-alt fa-2x fa-lg"></i>
+
+                            <br>
+                            <label for="guardar"><strong>Guardar</strong></label>
+
+                         </a>';
+                      }
+                      $cot.='
+
+                         </div>
+
+                      <!--</form> -->  
+                    
+                    </div>  
+
+
+                  </div>
+                      
+              
+              </div>
+
+                      
+
+
+                     ';
+
+
+        echo $cot;
+     
+   }
+                            
  
 }
 
